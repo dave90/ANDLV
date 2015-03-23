@@ -78,4 +78,12 @@ public abstract class ASPSolverService extends IntentService {
      * @param option
      */
     abstract String handleActionSolve(String program, String option) ;
+
+    abstract void onDestroyAction();
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        onDestroyAction();
+    }
 }

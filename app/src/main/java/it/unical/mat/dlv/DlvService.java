@@ -1,5 +1,7 @@
 package it.unical.mat.dlv;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -11,9 +13,9 @@ import java.io.FileOutputStream;
 
 public class DlvService extends ASPSolverService {
 
-    static{
+    /*static{
         System.loadLibrary("dlvJNI");
-    }
+    }*/
 
     /**
      * @param program
@@ -35,9 +37,19 @@ public class DlvService extends ASPSolverService {
             e.printStackTrace();
         }
 
-        String result = dlvMain(options + " " + file.getAbsolutePath());
-
+        //String result = dlvMain(options + " " + file.getAbsolutePath());
+        String result = "RISULTATO";
+        Log.i("info", "Risultato = " + result);
         return result;
+    }
+
+    /**
+     * Define istructions to do on onDestroy() call
+     */
+    @Override
+    void onDestroyAction() {
+
+        //android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     /**
@@ -45,5 +57,5 @@ public class DlvService extends ASPSolverService {
      * @param filePath
      * @return
      */
-    private native String dlvMain(String filePath);
+    //private native String dlvMain(String filePath);
 }
