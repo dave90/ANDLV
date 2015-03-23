@@ -26,7 +26,9 @@ public abstract class ASPSolverService extends IntentService {
     /**
      * Starts this service to perform action Foo with the given parameters. If
      * the service is already performing a task this action will be queued.
-     *
+     * @param context
+     * @param program
+     * @param options
      * @see IntentService
      */
     // TODO: Customize helper method
@@ -42,6 +44,10 @@ public abstract class ASPSolverService extends IntentService {
         super("ASPSolverService");
     }
 
+    /**
+     *
+     * @param intent
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
@@ -55,6 +61,10 @@ public abstract class ASPSolverService extends IntentService {
         }
     }
 
+    /**
+     *
+     * @param result
+     */
     private void publishResults(String result) {
         Intent intent = new Intent(RESULT_NOTIFICATION);
         intent.putExtra(SOLVER_RESULT, result);
@@ -64,6 +74,8 @@ public abstract class ASPSolverService extends IntentService {
     /**
      * Handle action ACTION_SOLVE in the provided background thread with the provided
      * parameters.
+     * @param program
+     * @param option
      */
     abstract String handleActionSolve(String program, String option) ;
 }

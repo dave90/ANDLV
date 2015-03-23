@@ -3,7 +3,7 @@ package it.unical.mat.dlv;
 import android.content.Context;
 
 /**
- * Created by Brain At Work on 23/03/2015.
+ * Created by Dario Campisano on 23/03/2015.
  */
 public class DlvHandler extends ASPHandler{
 
@@ -15,16 +15,29 @@ public class DlvHandler extends ASPHandler{
         super(ASPSolver, context);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected String generateInputProgram() {
         return null; //TODO
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     protected String generateInputOptions() {
         return null; //TODO
     }
 
+    /**
+     *
+     * @param outputToParse
+     * @return
+     */
     @Override
     protected String parseResult(String outputToParse) {
         return null; //TODO

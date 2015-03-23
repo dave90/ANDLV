@@ -17,11 +17,11 @@ public class DlvService extends ASPSolverService {
 
     /**
      * @param program
-     * @param option
+     * @param options
      * @return
      */
     @Override
-    String handleActionSolve(String program, String option) {
+    String handleActionSolve(String program, String options) {
         String filename = "myfile";
         File file = new File(this.getFilesDir(), filename);
 
@@ -35,10 +35,15 @@ public class DlvService extends ASPSolverService {
             e.printStackTrace();
         }
 
-        String result = dlvMain(option + " " + file.getAbsolutePath());
+        String result = dlvMain(options + " " + file.getAbsolutePath());
 
         return result;
     }
 
+    /**
+     *
+     * @param filePath
+     * @return
+     */
     private native String dlvMain(String filePath);
 }

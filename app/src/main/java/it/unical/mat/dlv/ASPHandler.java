@@ -20,7 +20,7 @@ public abstract class ASPHandler {
     private AnswerSetCallback asCallback; //Developer Callback
     private Context context; //Application context
 
-    private String outputToParse;
+    private String outputToParse;//Store result to parse
 
     /**
      *
@@ -41,22 +41,42 @@ public abstract class ASPHandler {
             ASPSolver.startSolverService(this.context,generateInputProgram(),generateInputOptions());
     }
 
+    /**
+     *
+     * @param option
+     */
     public void addOption(String option){
         this.options.add(option);
     }
 
+    /**
+     *
+     * @param rowInput
+     */
     public void addRowInput(String rowInput){
         this.rowInputs.add(rowInput);
     }
 
+    /**
+     *
+     * @param file
+     */
     public void addFileInput(String file){
         this.file = file;
     }
 
+    /**
+     *
+     * @param obj
+     */
     public void addInput(Object obj){
         //TODO
     }
 
+    /**
+     *
+     * @param set
+     */
     public void addInput(Objects set){
         //TODO
     }
@@ -75,11 +95,12 @@ public abstract class ASPHandler {
 
     /**
      * Parse result and create an AswerSet Object
+     * @param outputToParse
      */
     abstract protected String parseResult(String outputToParse); //return AswerSet Obj TODO
 
     /**
-     * Get and process result
+     * Notify an output and call AnswerSetCallback
      */
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
