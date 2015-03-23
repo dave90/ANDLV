@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 /**
- * Created by Dario Campisano on 23/03/2015.
+ * <p>DlvService extends {@link it.unical.mat.dlv.ASPSolverService} and contains a specific Dlv ASP Solver.</p>
+ * @see java.io.File
+ * @see java.io.FileOutputStream
  */
 
 public class DlvService extends ASPSolverService {
@@ -13,6 +15,11 @@ public class DlvService extends ASPSolverService {
         System.loadLibrary("dlvJNI");
     }
 
+    /**
+     * @param program
+     * @param option
+     * @return
+     */
     @Override
     String handleActionSolve(String program, String option) {
         String filename = "myfile";
