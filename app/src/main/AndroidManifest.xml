@@ -8,11 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <service
-            android:name=".ASPSolverService"
-            android:exported="false" >
-        </service>
-        <service
-            android:name=".MyIntentService"
+            android:name=".DlvService"
             android:exported="false" >
         </service>
     </application>

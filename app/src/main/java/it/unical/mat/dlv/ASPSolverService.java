@@ -18,7 +18,10 @@ public abstract class ASPSolverService extends IntentService {
 
     // TODO: Rename parameters
     private static final String PROGRAM = "it.unical.mat.dlv.extra.PROGRAM";
-    private static final String OPTION = "it.unical.mat.dlv.extra.PROGRAM";
+    private static final String OPTION = "it.unical.mat.dlv.extra.OPTION";
+    private static final String SOLVER_RESULT = "it.unical.mat.dlv.extra.SOLVER_RESULT";
+
+    private static final String RESULT_NOTIFICATION = "it.unical.mat.dlv.notification.RESULT_NOTIFICATION";
 
     /**
      * Starts this service to perform action Foo with the given parameters. If
@@ -27,14 +30,13 @@ public abstract class ASPSolverService extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void startActionFoo(Context context, String program, String option) {
+    public static void startSolverService(Context context, String program, String option) {
         Intent intent = new Intent(context, ASPSolverService.class);
         intent.setAction(ACTION_SOLVE);
         intent.putExtra(PROGRAM, program);
         intent.putExtra(OPTION, option);
         context.startService(intent);
     }
-
 
     public ASPSolverService() {
         super("ASPSolverService");
@@ -47,16 +49,21 @@ public abstract class ASPSolverService extends IntentService {
             if (ACTION_SOLVE.equals(action)) {
                 final String program = intent.getStringExtra(PROGRAM);
                 final String option = intent.getStringExtra(OPTION);
-                handleActionSolve(program, option);
+                final String result = handleActionSolve(program, option);
+                publishResults(result);
             }
         }
     }
 
-
+    private void publishResults(String result) {
+        Intent intent = new Intent(RESULT_NOTIFICATION);
+        intent.putExtra(SOLVER_RESULT, result);
+        sendBroadcast(intent);
+    }
 
     /**
-     * Handle action Baz in the provided background thread with the provided
+     * Handle action ACTION_SOLVE in the provided background thread with the provided
      * parameters.
      */
-    abstract void handleActionSolve(String program, String option) ;
+    abstract String handleActionSolve(String program, String option) ;
 }
