@@ -17,11 +17,11 @@ public abstract class ASPSolverService extends IntentService {
     private static final String ACTION_SOLVE = "it.unical.mat.dlv.action.SOLVE";
 
     // TODO: Rename parameters
-    private static final String PROGRAM = "it.unical.mat.dlv.extra.PROGRAM";
-    private static final String OPTION = "it.unical.mat.dlv.extra.OPTION";
-    private static final String SOLVER_RESULT = "it.unical.mat.dlv.extra.SOLVER_RESULT";
+    protected static final String PROGRAM = "it.unical.mat.dlv.extra.PROGRAM";
+    protected static final String OPTION = "it.unical.mat.dlv.extra.OPTION";
+    protected static final String SOLVER_RESULT = "it.unical.mat.dlv.extra.SOLVER_RESULT";
 
-    private static final String RESULT_NOTIFICATION = "it.unical.mat.dlv.notification.RESULT_NOTIFICATION";
+    protected static final String RESULT_NOTIFICATION = "it.unical.mat.dlv.notification.RESULT_NOTIFICATION";
 
     /**
      * Starts this service to perform action Foo with the given parameters. If
@@ -30,11 +30,11 @@ public abstract class ASPSolverService extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void startSolverService(Context context, String program, String option) {
+    public static void startSolverService(Context context, String program, String options) {
         Intent intent = new Intent(context, ASPSolverService.class);
         intent.setAction(ACTION_SOLVE);
         intent.putExtra(PROGRAM, program);
-        intent.putExtra(OPTION, option);
+        intent.putExtra(OPTION, options);
         context.startService(intent);
     }
 
@@ -48,8 +48,8 @@ public abstract class ASPSolverService extends IntentService {
             final String action = intent.getAction();
             if (ACTION_SOLVE.equals(action)) {
                 final String program = intent.getStringExtra(PROGRAM);
-                final String option = intent.getStringExtra(OPTION);
-                final String result = handleActionSolve(program, option);
+                final String options = intent.getStringExtra(OPTION);
+                final String result = handleActionSolve(program, options);
                 publishResults(result);
             }
         }
