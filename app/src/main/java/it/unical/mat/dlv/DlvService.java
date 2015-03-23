@@ -24,6 +24,7 @@ public class DlvService extends ASPSolverService {
      */
     @Override
     String handleActionSolve(String program, String options) {
+        Log.i("info","Launch service");
         String filename = "myfile";
         File file = new File(this.getFilesDir(), filename);
 
