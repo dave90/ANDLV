@@ -14,7 +14,7 @@ import android.content.Context;
 public abstract class ASPSolverService extends IntentService {
     // TODO: Rename actions, choose action names that describe tasks that this
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_SOLVE = "it.unical.mat.dlv.action.SOLVE";
+    protected static final String ACTION_SOLVE = "it.unical.mat.dlv.action.SOLVE";
 
     // TODO: Rename parameters
     protected static final String PROGRAM = "it.unical.mat.dlv.extra.PROGRAM";
