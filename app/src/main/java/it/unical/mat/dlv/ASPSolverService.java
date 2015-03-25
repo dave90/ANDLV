@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.Context;
 
 /**
- *
- *
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  *
@@ -26,19 +24,15 @@ public abstract class ASPSolverService extends IntentService {
     /**
      * Starts this service to perform action Foo with the given parameters. If
      * the service is already performing a task this action will be queued.
-     * @param context
-     * @param program
-     * @param options
-     * @see IntentService
      */
-    // TODO: Customize helper method
+    /*// TODO: Customize helper method
     public static void startSolverService(Context context, String program, String options) {
         Intent intent = new Intent(context, ASPSolverService.class);
         intent.setAction(ACTION_SOLVE);
         intent.putExtra(PROGRAM, program);
         intent.putExtra(OPTION, options);
         context.startService(intent);
-    }
+    }*/
 
     public ASPSolverService() {
         super("ASPSolverService");

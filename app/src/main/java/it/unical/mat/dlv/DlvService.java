@@ -1,5 +1,7 @@
 package it.unical.mat.dlv;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import java.io.File;
@@ -49,8 +51,8 @@ public class DlvService extends ASPSolverService {
      */
     @Override
     void onDestroyAction() {
-
-        //android.os.Process.killProcess(android.os.Process.myPid());
+        Log.i("info","Service killed");
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     /**

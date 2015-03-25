@@ -8,30 +8,9 @@ import android.content.Context;
 public class DlvHandler extends ASPHandler{
 
     /**
-     * @param ASPSolver Answer set program solver used
      * @param context
      */
-    public DlvHandler(ASPSolverService ASPSolver, Context context) {
-        super(ASPSolver, context);
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    protected String generateInputProgram() {
-        return null; //TODO
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    protected String generateInputOptions() {
-        return null; //TODO
-    }
+    public DlvHandler(Context context) { super(context); }
 
     /**
      *
@@ -40,8 +19,16 @@ public class DlvHandler extends ASPHandler{
      */
     @Override
     protected String parseResult(String outputToParse) {
-        return null; //TODO
+        return "risultato"; //TODO
     }
 
+    /**
+     *
+     * @return Instance of ASPSolverService chosen
+     */
+    @Override
+    protected ASPSolverService createASPSolverService() {
+        return new DlvService();
+    }
 
 }

@@ -14,9 +14,7 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         CallbackProva callback = new CallbackProva();
-        DlvService service = new DlvService();
-        DlvHandler dlvHandler = new DlvHandler(service,getApplication());
-
+        DlvHandler dlvHandler = new DlvHandler(MainActivity.this);
         dlvHandler.start(callback);
     }
 

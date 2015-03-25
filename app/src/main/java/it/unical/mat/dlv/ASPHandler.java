@@ -19,7 +19,7 @@ public abstract class ASPHandler {
     private String file; //a single input file
     protected ArrayList<String> rowInputs; //rowInputs inserted
     protected ArrayList<String> options; //options inserted
-    private ASPSolverService ASPSolver; //ASP solver used
+    protected ASPSolverService ASPSolver; //ASP solver used
     private AnswerSetCallback asCallback; //Developer Callback
     private Context context; //Application context
 
@@ -27,11 +27,11 @@ public abstract class ASPHandler {
 
     /**
      *
-     * @param ASPSolver Answer set program solver used
+     * @param context
      */
-    public ASPHandler(ASPSolverService ASPSolver, Context context){
-        this.ASPSolver = ASPSolver;
+    public ASPHandler(Context context){
         this.context = context;
+        this.ASPSolver = createASPSolverService();
     }
 
     /**
@@ -86,26 +86,11 @@ public abstract class ASPHandler {
     }
 
     /**
-     *
-     * @return A String containing input program
+     * Utility function waiting ASPSolverService has finished its task.
+     * It's dangerous to start another ASPSolverService until there's another ASPSolverService in runnning services queue.
      */
-    abstract protected String generateInputProgram();
-
-    /**
-     *
-     * @return A String containing program options
-     */
-    abstract protected String generateInputOptions();
-
-    /**
-     * Parse result and create an AswerSet Object
-     * @param outputToParse
-     */
-    abstract protected String parseResult(String outputToParse); //return AswerSet Obj TODO
-
-
-    void killingDlvService(){
-        Log.i("info", "Verifying if ASPSolverService is already Running ...");
+    private void killingDlvService(){
+        Log.i("info", "Verifying if "+ASPSolver.getClass().getName()+" is already Running ...");
         //Intent intent = new Intent(this,DlvService.class);
         //stopService(intent);
         boolean isServiceRunning = true;
@@ -116,7 +101,7 @@ public abstract class ASPHandler {
 
             isServiceRunning = false;
             for (ActivityManager.RunningServiceInfo processInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
-                if (processInfo.service.getClassName().equals("it.unical.mat.dlv.DlvService")) {//TODO
+                if (processInfo.service.getClassName().equals(ASPSolver.getClass().getName())) {//TODO
                     isServiceRunning = true;
                     Log.i("info", "Wait " + processInfo.service.getClassName() + " is already running!");
                     break;
@@ -146,8 +131,7 @@ public abstract class ASPHandler {
                 if (outputToParse != null) {
                     String output = parseResult(outputToParse); //TODO parseResult will return an AswerSet object
                     Log.i("info","Call to callback(..)");
-                    //asCallback.callback(output);
-                    asCallback.callback(outputToParse);
+                    asCallback.callback(output);
                 }
             }
         }
@@ -156,9 +140,22 @@ public abstract class ASPHandler {
     private void startASPSolverService(String program, String options) {
         killingDlvService();
         Intent intent = new Intent(context, ASPSolver.getClass());
+        intent.setAction(ASPSolver.ACTION_SOLVE);
         intent.putExtra(ASPSolver.PROGRAM, program);
         intent.putExtra(ASPSolver.OPTION, options);
         context.registerReceiver(receiver, new IntentFilter(ASPSolver.RESULT_NOTIFICATION));
         context.startService(intent);
     }
+
+    /**
+     * Parse result and create an AswerSet Object
+     * @param outputToParse
+     */
+    abstract protected String parseResult(String outputToParse); //return AswerSet Obj TODO
+
+    /**
+     * @return "new ASPSolverService();". ASPSolverService implemented.
+     */
+    abstract protected ASPSolverService createASPSolverService();
+
 }
