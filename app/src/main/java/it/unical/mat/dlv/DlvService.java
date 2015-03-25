@@ -39,10 +39,10 @@ public class DlvService extends ASPSolverService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        //TODO call dlvMain correctly
         //String result = dlvMain(options + " " + file.getAbsolutePath());
         String result = "RISULTATO";
-        Log.i("info", "Risultato = " + result);
+        Log.i("info", "Result = " + result);
         return result;
     }
 

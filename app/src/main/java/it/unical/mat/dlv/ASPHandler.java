@@ -17,8 +17,8 @@ import java.util.Objects;
 public abstract class ASPHandler {
 
     private String file; //a single input file
-    protected ArrayList<String> rowInputs; //rowInputs inserted
-    protected ArrayList<String> options; //options inserted
+    protected String rowInputs; //rowInputs inserted
+    protected String options; //options inserted
     protected ASPSolverService ASPSolver; //ASP solver used
     private AnswerSetCallback asCallback; //Developer Callback
     private Context context; //Application context
@@ -39,10 +39,9 @@ public abstract class ASPHandler {
      * @param asCallback
      */
     public void start(AnswerSetCallback asCallback){
-        //TODO
         this.asCallback = asCallback;
         //startASPSolverService(generateInputProgram(), generateInputOptions());
-        startASPSolverService("", "");
+        startASPSolverService("", "");//TODO insert program and options
     }
 
     /**
@@ -50,7 +49,7 @@ public abstract class ASPHandler {
      * @param option
      */
     public void addOption(String option){
-        this.options.add(option);
+        this.options += option + " ";
     }
 
     /**
@@ -58,7 +57,7 @@ public abstract class ASPHandler {
      * @param rowInput
      */
     public void addRowInput(String rowInput){
-        this.rowInputs.add(rowInput);
+        rowInputs += rowInput + "\n";
     }
 
     /**
@@ -66,7 +65,7 @@ public abstract class ASPHandler {
      * @param file
      */
     public void addFileInput(String file){
-        this.file = file;
+        this.file += file + "\n";
     }
 
     /**
