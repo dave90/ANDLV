@@ -1,23 +1,32 @@
-package it.unical.mat.dlv;
-
+package it.unical.mat.dlvjni;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+
 import java.io.File;
 import java.io.FileOutputStream;
+import it.unical.mat.dlv.ASPSolverService;
+
+/**
+ * Created by Dario Campisano on 25/03/2015.
+ */
 
 /**
  * <p>DlvService extends {@link it.unical.mat.dlv.ASPSolverService} and contains a specific Dlv ASP Solver.</p>
+ *
  * @see java.io.File
  * @see java.io.FileOutputStream
  */
 
+
 public class DlvService extends ASPSolverService {
 
-    /*static{
+
+    static{
         System.loadLibrary("dlvJNI");
-    }*/
+    }
+
 
     /**
      * @param program
@@ -25,12 +34,14 @@ public class DlvService extends ASPSolverService {
      * @return
      */
     @Override
-    String handleActionSolve(String program, String options) {
-        Log.i("info","Launch service");
+    protected String handleActionSolve(String program, String options) {
+        Log.i("info", "Launch service");
         String filename = "myfile";
         File file = new File(this.getFilesDir(), filename);
 
+
         FileOutputStream outputStream = null;
+
 
         try {
             outputStream = new FileOutputStream(file);
@@ -40,25 +51,28 @@ public class DlvService extends ASPSolverService {
             e.printStackTrace();
         }
         //TODO call dlvMain correctly
-        //String result = dlvMain(options + " " + file.getAbsolutePath());
-        String result = "RISULTATO";
+        String result = dlvMain(options + " " + file.getAbsolutePath());
+        //String result = "RISULTATO";
         Log.i("info", "Result = " + result);
         return result;
     }
+
 
     /**
      * Define istructions to do on onDestroy() call
      */
     @Override
-    void onDestroyAction() {
-        Log.i("info","Service killed");
+    protected void onDestroyAction() {
+        Log.i("info", "Service killed");
         android.os.Process.killProcess(android.os.Process.myPid());
     }
+
 
     /**
      *
      * @param filePath
      * @return
      */
-    //private native String dlvMain(String filePath);
+    private native String dlvMain(String filePath);
 }
+
