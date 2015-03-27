@@ -13,9 +13,10 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CallbackProva callback = new CallbackProva();
-        DlvHandler dlvHandler = new DlvHandler(MainActivity.this);
-        dlvHandler.start(callback);
+        CallbackProva callb = new CallbackProva();
+        DlvHandler dlvHandler = new DlvHandler(this);
+        dlvHandler.addRowInput("a(1). b(X):-a(X).");
+        dlvHandler.start(callb);
     }
 
     @Override

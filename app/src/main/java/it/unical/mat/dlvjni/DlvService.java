@@ -1,26 +1,25 @@
 package it.unical.mat.dlvjni;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 
 import java.io.File;
 import java.io.FileOutputStream;
-import it.unical.mat.dlv.ASPSolverService;
+
+import it.unical.mat.dlv.ASPService;
 
 /**
  * Created by Dario Campisano on 25/03/2015.
  */
 
 /**
- * <p>DlvService extends {@link it.unical.mat.dlv.ASPSolverService} and contains a specific Dlv ASP Solver.</p>
+ * <p>DlvService extends {@link it.unical.mat.dlv.ASPService} and contains a specific Dlv ASP Solver.</p>
  *
  * @see java.io.File
  * @see java.io.FileOutputStream
  */
 
 
-public class DlvService extends ASPSolverService {
+public class DlvService extends ASPService {
 
 
     static{
@@ -50,23 +49,11 @@ public class DlvService extends ASPSolverService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //TODO call dlvMain correctly
+
         String result = dlvMain(options + " " + file.getAbsolutePath());
-        //String result = "RISULTATO";
-        Log.i("info", "Result = " + result);
+
         return result;
     }
-
-
-    /**
-     * Define istructions to do on onDestroy() call
-     */
-    @Override
-    protected void onDestroyAction() {
-        Log.i("info", "Service killed");
-        android.os.Process.killProcess(android.os.Process.myPid());
-    }
-
 
     /**
      *
@@ -74,5 +61,12 @@ public class DlvService extends ASPSolverService {
      * @return
      */
     private native String dlvMain(String filePath);
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("info", "Service killed");
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
 }
 

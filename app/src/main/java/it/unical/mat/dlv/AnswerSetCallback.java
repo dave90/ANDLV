@@ -5,8 +5,7 @@ package it.unical.mat.dlv;
  */
 public interface AnswerSetCallback {
     /**
-     *
      * @param AnswerSet
      */
-    public void callback(String AnswerSet);
+    public void callback(String AnswerSet);//TODO AnswerSet answerSet public void callback(ArrayList<AnswerSet>)
 }
