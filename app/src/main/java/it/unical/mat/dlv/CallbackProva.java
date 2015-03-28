@@ -9,6 +9,6 @@ public class CallbackProva implements AnswerSetCallback {
     public CallbackProva(){}
     @Override
     public void callback(String AnswerSet) {
-        Log.i("info", "Result from callback:" + AnswerSet);
+        Log.i("CallBackProva.callback", "Result from callback:\n" + AnswerSet);
     }
 }

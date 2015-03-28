@@ -8,6 +8,10 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -24,42 +28,71 @@ public abstract class ASPHandler {
         this.program = "";
     }
 
-    /**
+    /** Execute the Answer Set Program and get AnswerSetCallback implemented
      * @param asCallback
      */
     public abstract void start(AnswerSetCallback asCallback);
 
     /**
-     *
+     * Add an Answer Set Program option for execution
      * @param options
      */
     public void addOption(String options){
-        this.options = options;
+        this.options = this.options.concat( options + " " );
     }
 
     /**
-     *
-     * @param program
+     *  Add an Answer Set Program row input
+     * @param rowInput
      */
-    public void addRowInput(String program){
-        this.program = program;
+    public void addRowInput(String rowInput){
+        this.program = this.program.concat(rowInput + "\n");
     }
 
     /**
-     *
+     *  Get Answer Set Program from filesystem
+     * @param
+     */
+    public void addFileInput(String filePath){
+        File programFromPath = new File(filePath);
+        String aspProgram = fileToString(programFromPath);
+        this.program = this.program.concat(aspProgram + "\n");
+    }
+
+    /**
+     * Create String from File
      * @param file
+     * @return
      */
-    public void addFileInput(String file){//file path
-            //TODO
+    private String fileToString(File file){
+        StringBuilder text = new StringBuilder();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null) {
+
+                    text.append(line + "\n");
+            }
+            br.close();
+        }
+        catch (IOException e) {
+            Log.e("ASPHandler.fileToString","Error reading file: " + file.getAbsolutePath());
+        }
+        return text.toString();
     }
 
     /**
-     * Parse result and create an AswerSet Object
+     * Receive an output to parse
      * @param outputToParse
+     * @return ArrayList<AnswerSet> Contains Answer sets generated from an Answer Set Program String output
      */
-
     abstract protected String parseResult(String outputToParse); //return ArrayList<AswerSet> TODO
 
+    /**
+     * Receive output, call parseResult(String outputToParse) and finally the method AnswerSetCallback.callback(AnswerSet answerSet)
+     * @param aspServiceOut
+     */
     abstract protected void receive(String aspServiceOut);
+
 
 }

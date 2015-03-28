@@ -20,11 +20,11 @@ public abstract class ASPService extends IntentService {
     protected static final String RESULT_NOTIFICATION = "it.unical.mat.notification.RESULT_NOTIFICATION";
 
     public ASPService() {
-        super("ASPService");
-    }//TODO verificare costruttore
+        super("ASPService");//worker thread named "ASPService"
+    }
 
     /**
-     *
+     * Execute IntentService worker thread and publish the result
      * @param intent
      */
     @Override
@@ -41,7 +41,7 @@ public abstract class ASPService extends IntentService {
     }
 
     /**
-     *
+     * Send a Broadcast Intent with the Answer Set Program result
      * @param result
      */
     private void publishResults(String result) {

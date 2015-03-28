@@ -17,6 +17,10 @@ public class OutputReceiver extends BroadcastReceiver{
         super();
     }
 
+    /**
+     * Notify the result to ASPHandler
+     * @param aspHandler
+     */
     public OutputReceiver(ASPHandler aspHandler){
         this.aspHandler = aspHandler;
     }

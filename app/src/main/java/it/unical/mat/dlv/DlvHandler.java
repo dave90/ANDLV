@@ -19,11 +19,18 @@ public class DlvHandler extends ASPHandler{
     private DlvService dlvService;
     private AnswerSetCallback asCallbask;
 
+    /**
+     *
+     * @param context Application Context
+     */
     public DlvHandler(Context context){
         this.context = context;
         dlvService = new DlvService();
     }
 
+    /** Execute the Answer Set Program and get AnswerSetCallback implemented
+     * @param asCallback
+     */
     @Override
     public void start(AnswerSetCallback asCallback) {
         this.asCallbask = asCallback;
@@ -37,18 +44,31 @@ public class DlvHandler extends ASPHandler{
         context.startService(intent);
     }
 
+    /**
+     * Receive an output to parse
+     * @param outputToParse
+     * @return ArrayList<AnswerSet> Contains Answer sets generated from an Answer Set Program String output
+     */
     @Override
     protected String parseResult(String outputToParse) {
         return outputToParse;
     }
 
+    /**
+     * Receive output, call parseResult(String outputToParse) and finally the method AnswerSetCallback.callback(AnswerSet answerSet)
+     * @param aspServiceOut
+     */
     @Override
     protected void receive(String aspServiceOut){
         String out =  parseResult(aspServiceOut);
         asCallbask.callback(out);
     }
+
+    /**
+     * Check if a service is already running and stops until service will killed
+     */
     void killingDlvService(){
-        Log.i("info", "Verifying if ASPService is already Running ...");
+        Log.i("info", "Verifying if " + dlvService.getClass().getName() + " is already Running ...");
         boolean isServiceRunning = true;
         while (isServiceRunning) {
 
@@ -59,7 +79,7 @@ public class DlvHandler extends ASPHandler{
             for (ActivityManager.RunningServiceInfo processInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
                 if (processInfo.service.getClassName().equals(dlvService.getClass().getName())) {
                     isServiceRunning = true;
-                    Log.i("info", "Wait " + processInfo.service.getClassName() + " is already running!");
+                    Log.i("DlvHandler.killing[..]", "Wait " + processInfo.service.getClassName() + " is already running!");
                     break;
                 }
             }
@@ -71,6 +91,6 @@ public class DlvHandler extends ASPHandler{
             }
 
         }
-        Log.i("info","New ASPService can be started ...");
+        Log.i("DlvHandler.killing[..]","New ASPService can be started ...");
     }
 }
