@@ -50,8 +50,8 @@ public class DlvHandler extends ASPHandler{
      * @return ArrayList<AnswerSet> Contains Answer sets generated from an Answer Set Program String output
      */
     @Override
-    protected String parseResult(String outputToParse) {
-        return outputToParse;
+    protected String parseResult(AnswerSet outputToParse) {
+        return outputToParse.getAnswerSet();
     }
 
     /**
@@ -60,7 +60,8 @@ public class DlvHandler extends ASPHandler{
      */
     @Override
     protected void receive(String aspServiceOut){
-        String out =  parseResult(aspServiceOut);
+        AnswerSet answerSet = new AnswerSet(aspServiceOut);
+        String out =  parseResult(answerSet);
         asCallbask.callback(out);
     }
 

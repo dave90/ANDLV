@@ -86,7 +86,7 @@ public abstract class ASPHandler {
      * @param outputToParse
      * @return ArrayList<AnswerSet> Contains Answer sets generated from an Answer Set Program String output
      */
-    abstract protected String parseResult(String outputToParse); //return ArrayList<AswerSet> TODO
+    abstract protected String parseResult(AnswerSet outputToParse); //return ArrayList<AswerSet> TODO
 
     /**
      * Receive output, call parseResult(String outputToParse) and finally the method AnswerSetCallback.callback(AnswerSet answerSet)
