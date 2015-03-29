@@ -54,6 +54,7 @@ public class DlvHandler extends ASPHandler{
      * @return ArrayList<AnswerSet> Contains Answer sets generated from an Answer Set Program String output
      */
     protected ArrayList<AnswerSet> parseResult(String outputToParse){
+        //base version parser
         ArrayList<AnswerSet> answerSets = new ArrayList<AnswerSet>();
         Pattern pattern = Pattern.compile("[{](.)*[}]");
         Matcher matcher = pattern.matcher(outputToParse);
