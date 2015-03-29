@@ -1,11 +1,13 @@
 package it.unical.mat.dlv;
 
+import java.util.ArrayList;
+
 /**
  * Created by Dario Campisano on 23/03/2015.
  */
 public interface AnswerSetCallback {
     /** Callback for result handling
-     * @param AnswerSet
+     * @param answerSets
      */
-    public void callback(String AnswerSet);//TODO AnswerSet answerSet public void callback(ArrayList<AnswerSet>)
+    public void callback(ArrayList<AnswerSet> answerSets);//TODO AnswerSet answerSet public void callback(ArrayList<AnswerSet>)
 }

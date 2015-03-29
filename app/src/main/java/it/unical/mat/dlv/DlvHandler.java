@@ -7,6 +7,10 @@ import android.content.IntentFilter;
 import android.content.ReceiverCallNotAllowedException;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import it.unical.mat.dlvjni.DlvService;
 
 /**
@@ -49,20 +53,24 @@ public class DlvHandler extends ASPHandler{
      * @param outputToParse
      * @return ArrayList<AnswerSet> Contains Answer sets generated from an Answer Set Program String output
      */
-    @Override
-    protected String parseResult(AnswerSet outputToParse) {
-        return outputToParse.getAnswerSet();
+    protected ArrayList<AnswerSet> parseResult(String outputToParse){
+        ArrayList<AnswerSet> answerSets = new ArrayList<AnswerSet>();
+        Pattern pattern = Pattern.compile("[{](.)*[}]");
+        Matcher matcher = pattern.matcher(outputToParse);
+        while (matcher.find()) {
+            AnswerSet answerSet = new AnswerSet(matcher.group());
+            answerSets.add(answerSet);
+        }
+        return answerSets;
     }
-
     /**
-     * Receive output, call parseResult(String outputToParse) and finally the method AnswerSetCallback.callback(AnswerSet answerSet)
+     * Receive output, call parseResult(String outputToParse) and finally the method AnswerSetCallback.callback(ArrayList<AnswerSet>)
      * @param aspServiceOut
      */
     @Override
     protected void receive(String aspServiceOut){
-        AnswerSet answerSet = new AnswerSet(aspServiceOut);
-        String out =  parseResult(answerSet);
-        asCallbask.callback(out);
+        ArrayList<AnswerSet> answerSets =  parseResult(aspServiceOut);
+        asCallbask.callback(answerSets);
     }
 
     /**
