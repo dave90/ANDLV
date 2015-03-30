@@ -10,7 +10,7 @@ import android.content.Context;
  *
  */
 public abstract class ASPService extends IntentService {
-    //Intent message
+    //Intent messages
     public static final String ACTION_SOLVE = "it.unical.mat.action.SOLVE";
 
     public static final String PROGRAM = "it.unical.mat.extra.PROGRAM";

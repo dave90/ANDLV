@@ -8,6 +8,7 @@ import android.util.Log;
 
 /**
  * Created by Dario Campisano on 27/03/2015.
+ * <p>OutputReceiver is an implementation of a BrodcastReceiver class. It is used to receive, in this case, a result from an ASPService</>
  */
 public class OutputReceiver extends BroadcastReceiver{
 
@@ -18,8 +19,8 @@ public class OutputReceiver extends BroadcastReceiver{
     }
 
     /**
-     * Notify the result to ASPHandler
-     * @param aspHandler
+     * Costructor
+     * @param aspHandler ASP handler to notify of an available result
      */
     public OutputReceiver(ASPHandler aspHandler){
         this.aspHandler = aspHandler;

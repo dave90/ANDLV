@@ -6,12 +6,13 @@ import java.util.ArrayList;
 
 /**
  * Created by Dario Campisano on 23/03/2015.
+ * <p>ASPHandler is a generic class. It provides generic methods for an Answer Set Program execution handling</>
  */
 public abstract class ASPHandler {
 
 
-    protected String options;
-    protected String program;
+    protected String options;//stores program options
+    protected String program;//store an entire ASP program
 
     public ASPHandler(){
         this.options = "";
@@ -77,10 +78,10 @@ public abstract class ASPHandler {
      * @param outputToParse
      * @return ArrayList<AnswerSet> Contains Answer sets generated from an Answer Set Program String output
      */
-    abstract protected ArrayList<AnswerSet> parseResult(String outputToParse); //return ArrayList<AswerSet> TODO
+    abstract protected ArrayList<AnswerSet> parseResult(String outputToParse);
 
     /**
-     * Receive output, call parseResult(String outputToParse) and finally the method AnswerSetCallback.callback(AnswerSet answerSet)
+     * Receive output.It should call parseResult(String outputToParse) and finally the method AnswerSetCallback.callback(AnswerSet answerSet)
      * @param aspServiceOut
      */
     abstract protected void receive(String aspServiceOut);

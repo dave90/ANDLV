@@ -9,6 +9,7 @@ import it.unical.mat.dlv.R;
 
 /**
  * Created by Dario Campisano on 23/03/2015.
+ * <p>Test MainActivity for andlv </>
  */
 public class MainActivity extends Activity{
     @Override

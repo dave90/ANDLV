@@ -30,7 +30,7 @@ public class DlvService extends ASPService {
 
     }
 
-    /** Call dlvMain native function
+    /** Call dlvMain native function in a worker thread
      * @param program
      * @param options
      * @return
@@ -59,17 +59,20 @@ public class DlvService extends ASPService {
     }
 
     /**
-     *
+     * Native function for DLV execution
      * @param filePath
      * @return
      */
     private native String dlvMain(String filePath);
 
+    /**
+     * Close DlvService and kill the process.
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.i("DlvSevice.handleAc[..]", "DlvService killed");
-        android.os.Process.killProcess(android.os.Process.myPid());//TODO:to verify
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }
 

@@ -14,6 +14,7 @@ import it.unical.mat.dlvjni.DlvService;
 
 /**
  * Created by Dario Campisano on 23/03/2015.
+ * <p>DLVHandler is an implementation of an ASPHandeler specifically used for a DLV execution handling </>
  */
 public class DLVHandler extends ASPHandler {
     private Context context;
