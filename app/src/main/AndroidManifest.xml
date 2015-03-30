@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="it.unical.mat.dlvjni.DlvService"
+            android:name="it.unical.mat.andlv.dlv.DLVService"
             android:exported="false"
             android:process=":remote">
         </service>

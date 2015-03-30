@@ -1,4 +1,4 @@
-package it.unical.mat.andlv;
+package it.unical.mat.andlv.dlv;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import it.unical.mat.dlvjni.DlvService;
+import it.unical.mat.andlv.ASPHandler;
+import it.unical.mat.andlv.AnswerSet;
+import it.unical.mat.andlv.AnswerSetCallback;
+import it.unical.mat.andlv.OutputReceiver;
 
 /**
  * Created by Dario Campisano on 23/03/2015.
@@ -20,7 +23,7 @@ public class DLVHandler extends ASPHandler {
     private Context context;
 
     private OutputReceiver receiver;
-    private DlvService dlvService;
+    private DLVService dlvService;
     private AnswerSetCallback asCallbask;
 
     /**
@@ -28,7 +31,7 @@ public class DLVHandler extends ASPHandler {
      */
     public DLVHandler(){
 
-        dlvService = new DlvService();
+        dlvService = new DLVService();
     }
 
     /** Execute the Answer Set Program and get AnswerSetCallback implemented
@@ -44,7 +47,7 @@ public class DLVHandler extends ASPHandler {
         intent.setAction(dlvService.ACTION_SOLVE);
         intent.putExtra(dlvService.PROGRAM, this.program);
         intent.putExtra(dlvService.OPTION, this.options);
-        context.registerReceiver(receiver, new IntentFilter(DlvService.RESULT_NOTIFICATION));
+        context.registerReceiver(receiver, new IntentFilter(DLVService.RESULT_NOTIFICATION));
         context.startService(intent);
     }
 

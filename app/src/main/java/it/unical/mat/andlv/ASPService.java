@@ -17,7 +17,7 @@ public abstract class ASPService extends IntentService {
     public static final String OPTION = "it.unical.mat.extra.OPTION";
     public static final String SOLVER_RESULT = "it.unical.mat.extra.SOLVER_RESULT";
 
-    protected static final String RESULT_NOTIFICATION = "it.unical.mat.notification.RESULT_NOTIFICATION";
+    public static final String RESULT_NOTIFICATION = "it.unical.mat.notification.RESULT_NOTIFICATION";
 
     public ASPService() {
         super("ASPService");//worker thread named "ASPService"

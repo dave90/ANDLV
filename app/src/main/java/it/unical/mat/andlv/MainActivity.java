@@ -17,7 +17,7 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AnswerSetCallback callb = new CallbackProva();
-        DLVHandler DLVHandler = new DLVHandler();
+        ASPHandler DLVHandler = new it.unical.mat.andlv.dlv.DLVHandler();
         DLVHandler.addRowInput("a(1). b(X):-a(X).");
         DLVHandler.start(this,callb);
     }
