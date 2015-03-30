@@ -11,12 +11,6 @@ public class AnswerSet {
     private boolean isMapEmpty;
     private HashMap<Integer,Integer> weightMap;
 
-    /*public AnswerSet(String outputString, HashMap<Integer, Integer> weightMap){
-        this.answerSet = outputString;
-        this.weightMap = weightMap;
-        this.isMapEmpty = weightMap.isEmpty();
-    }*/
-
     /**
      * Constructor
      * @param outputString a String representing an Answer Set
