@@ -103,4 +103,10 @@ public class DlvHandler extends ASPHandler{
         }
         Log.i("DlvHandler.killing[..]","New ASPService can be started ...");
     }
+
+    //utility func. for parsing with two worker thread
+    private ArrayList<AnswerSet> answerSetsParser(String outputToParse){
+        return null;
+    }
+
 }
