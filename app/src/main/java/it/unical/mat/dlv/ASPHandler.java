@@ -40,7 +40,7 @@ public abstract class ASPHandler {
      * @param options
      */
     public void addOption(String options){
-        this.options = this.options.concat( options + " " );
+        this.options = options;
     }
 
     /**
@@ -48,7 +48,7 @@ public abstract class ASPHandler {
      * @param rowInput
      */
     public void addRowInput(String rowInput){
-        this.program = this.program.concat(rowInput + "\n");
+        this.program = rowInput;
     }
 
     /**
