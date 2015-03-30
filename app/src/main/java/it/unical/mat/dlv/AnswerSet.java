@@ -29,6 +29,7 @@ public class AnswerSet {
         return this.weightMap;
     }
 
+    //Utility Func.
     public boolean isWeightMapEmpty(){
         return this.isMapEmpty;
     }
