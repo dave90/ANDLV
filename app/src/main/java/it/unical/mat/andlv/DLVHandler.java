@@ -62,25 +62,6 @@ public class DLVHandler extends ASPHandler {
             AnswerSet answerSet = new AnswerSet(matcher.group());
             answerSets.add(answerSet);
         }
-        /*ArrayList<AnswerSet> answerSets = new ArrayList<AnswerSet>();
-
-        Pattern pattern_weight = Pattern.compile("Best model. ([{].*[}])\nCost \\(\\[Weight.Level\\]\\). [<][\\[](\\d).(\\d)[\\]][>]|([{].*[}])");
-        Matcher matcher = pattern_weight.matcher(outputToParse);
-
-        while (matcher.find()) {
-
-            String key = matcher.group(2);
-            String value = matcher.group(3);
-            if(key==null && value == null){
-                AnswerSet answerSet = new AnswerSet(as);
-                answerSets.add(answerSet);
-            }
-            else {
-                HashMap<Integer,Integer> weight = new HashMap<Integer,Integer>();
-                weight.put(Integer.valueOf(key),Integer.valueOf(value));
-                AnswerSet answerSet = new AnswerSet(as,weight);
-            }
-        }*/
 
         return answerSets;
     }
