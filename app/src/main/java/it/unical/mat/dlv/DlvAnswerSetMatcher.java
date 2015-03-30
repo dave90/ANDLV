@@ -41,20 +41,5 @@ public class DlvAnswerSetMatcher extends Thread{
 	public ArrayList<String> getAnswerSets(){
 		return answerSets;
 	}
-	
-	public String fileToString(File file) {
-		StringBuilder text = new StringBuilder();
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(file));
-			String line;
-			while ((line = br.readLine()) != null) {
 
-				text.append(line + "\n");
-			}
-			br.close();
-		} catch (IOException e) {
-
-		}
-		return text.toString();
-	}
 }
