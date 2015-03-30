@@ -1,9 +1,11 @@
-package it.unical.mat.dlv;
+package it.unical.mat.andlv;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import it.unical.mat.dlv.R;
 
 /**
  * Created by Dario Campisano on 23/03/2015.

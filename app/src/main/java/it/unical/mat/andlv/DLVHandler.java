@@ -1,16 +1,12 @@
-package it.unical.mat.dlv;
+package it.unical.mat.andlv;
 
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ReceiverCallNotAllowedException;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.BrokenBarrierException;
-import java.util.concurrent.CyclicBarrier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +15,7 @@ import it.unical.mat.dlvjni.DlvService;
 /**
  * Created by Dario Campisano on 23/03/2015.
  */
-public class DlvHandler extends ASPHandler{
+public class DLVHandler extends ASPHandler {
     private Context context;
 
     private OutputReceiver receiver;
@@ -29,7 +25,7 @@ public class DlvHandler extends ASPHandler{
     /**
      *
      */
-    public DlvHandler(){
+    public DLVHandler(){
 
         dlvService = new DlvService();
     }

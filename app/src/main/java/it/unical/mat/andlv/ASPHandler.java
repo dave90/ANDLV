@@ -1,19 +1,8 @@
-package it.unical.mat.dlv;
+package it.unical.mat.andlv;
 
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
-import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Created by Dario Campisano on 23/03/2015.

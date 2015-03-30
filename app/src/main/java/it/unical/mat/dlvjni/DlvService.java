@@ -5,14 +5,14 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import it.unical.mat.dlv.ASPService;
+import it.unical.mat.andlv.ASPService;
 
 /**
  * Created by Dario Campisano on 25/03/2015.
  */
 
 /**
- * <p>DlvService extends {@link it.unical.mat.dlv.ASPService} and contains a specific Dlv ASP Solver.</p>
+ * <p>DlvService extends {@link it.unical.mat.andlv.ASPService} and contains a specific Dlv ASP Solver.</p>
  *
  * @see java.io.File
  * @see java.io.FileOutputStream
