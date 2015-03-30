@@ -11,17 +11,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DlvAnswerSetMatcher extends Thread{
-	private ParseResult dlvparser;//TODELETE
 	private CyclicBarrier cyclicBarrier;
 	private ArrayList<String> answerSets;
 	private String outputToParse;
-
-	//TODELETE
-	public DlvAnswerSetMatcher(ParseResult dlvparser,
-			CyclicBarrier cyclicBarrier) {
-		this.dlvparser = dlvparser;
-		this.cyclicBarrier = cyclicBarrier;
-	}
 
 	public DlvAnswerSetMatcher(String outPutToParse,
 			CyclicBarrier cyclicBarrier) {

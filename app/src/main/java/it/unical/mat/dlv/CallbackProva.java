@@ -12,7 +12,10 @@ public class CallbackProva implements AnswerSetCallback {
     @Override
     public void callback(ArrayList<AnswerSet> answerSets) {
         for(int i = 0; i < answerSets.size();i++){
-            Log.i("CallbackProva.callback", " Answer Set: " + (i + 1) + " " + answerSets.get(i).getAnswerSet());
+            Log.i("CallbackProva.callback", " Answer Set" + (i + 1) + " " + answerSets.get(i).getAnswerSet());
+            if(answerSets.get(i).isWeightMapEmpty()){
+                Log.i("CallbackProva.callback", " Answer Set"+ (i + 1) +" weight: "+ " unknown");
+            }
         }
     }
 }
