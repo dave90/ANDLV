@@ -31,8 +31,9 @@ public abstract class ASPHandler {
 
     /** Execute the Answer Set Program and get AnswerSetCallback implemented
      * @param asCallback
+     * @param context
      */
-    public abstract void start(AnswerSetCallback asCallback);
+    public abstract void start(Context context,AnswerSetCallback asCallback);
 
     /**
      * Add an Answer Set Program option for execution
@@ -54,18 +55,18 @@ public abstract class ASPHandler {
      *  Get Answer Set Program from filesystem
      * @param
      */
-    public void addFileInput(String filePath){
+    /*public void addFileInput(String filePath){
         File programFromPath = new File(filePath);
         String aspProgram = fileToString(programFromPath);
         this.program = this.program.concat(aspProgram + "\n");
-    }
+    }*/
 
     /**
      * Create String from File
      * @param file
      * @return
      */
-    private String fileToString(File file){
+    /*private String fileToString(File file){
         StringBuilder text = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -80,7 +81,7 @@ public abstract class ASPHandler {
             Log.e("ASPHandler.fileToString","Error reading file: " + file.getAbsolutePath());
         }
         return text.toString();
-    }
+    }*/
 
     /**
      * Receive an output to parse
