@@ -12,28 +12,40 @@ import android.util.Log;
  */
 public class OutputReceiver extends BroadcastReceiver{
 
-    private ASPHandler aspHandler;
+    private ASPHandler aspHandler; //A generic ASPHandeler
 
+    /**
+     * Default constructor.
+     * @see android.content.BroadcastReceiver
+     */
     public OutputReceiver() {
         super();
     }
 
     /**
-     * Costructor
+     * Costructor initializing a generic {@link it.unical.mat.andlv.ASPHandler}
      * @param aspHandler ASP handler to notify of an available result
      */
     public OutputReceiver(ASPHandler aspHandler){
         this.aspHandler = aspHandler;
     }
+
+    /**
+     *
+     * @param context Application Context
+     * @param intent get ASPService execution result when it is ready
+     * @see android.content.Context
+     * @see android.content.Intent
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
 
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            String ASPResult = bundle.getString(ASPService.SOLVER_RESULT);
+            String ASPResult = bundle.getString(ASPService.SOLVER_RESULT);//get the result from a generic ASPService
             if (ASPResult != null) {
-                Log.i("info", "Call to callback()");
-                aspHandler.receive(ASPResult);
+                Log.i("OutputReceiver", "Call to ASPHandler.receive(String) method");
+                aspHandler.receive(ASPResult);//Send result to the generic ASPHandler
             }
         }
     }

@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 /**
  * Created by Dario Campisano on 23/03/2015.
- * <p>ASPHandler is a generic class. It provides generic methods for an Answer Set Program execution handling</>
+ * <p>ASPHandler is an Abstract class. It provides generic methods for an Answer Set Program execution handling.
+ * Get an Answer Set Program and its options for the execution. Provide a public methos to start the Answer Set Program execution. </>
  */
 public abstract class ASPHandler {
 
@@ -20,13 +21,16 @@ public abstract class ASPHandler {
     }
 
     /** Execute the Answer Set Program and get AnswerSetCallback implemented
+     * that is called for the result handling
      * @param asCallback
      * @param context
+     * @see it.unical.mat.andlv.AnswerSetCallback
+     * @see android.content.Context
      */
     public abstract void start(Context context,AnswerSetCallback asCallback);
 
     /**
-     * Add an Answer Set Program option for execution
+     * Add an Answer Set Program option for sexecution
      * @param options
      */
     public void addOption(String options){
@@ -34,7 +38,7 @@ public abstract class ASPHandler {
     }
 
     /**
-     *  Add an Answer Set Program row input
+     *  Add an Answer Set Program input
      * @param rowInput
      */
     public void addRowInput(String rowInput){
@@ -74,14 +78,16 @@ public abstract class ASPHandler {
     }*/
 
     /**
-     * Receive an output to parse
+     * Abstract method for result parsing and AnswerSets creation
      * @param outputToParse
      * @return ArrayList<AnswerSet> Contains Answer sets generated from an Answer Set Program String output
+     * @see it.unical.mat.andlv.AnswerSet
+     * @see java.util.ArrayList
      */
     abstract protected ArrayList<AnswerSet> parseResult(String outputToParse);
 
     /**
-     * Receive output.It should call parseResult(String outputToParse) and finally the method AnswerSetCallback.callback(AnswerSet answerSet)
+     * Abstract method called from an {@link it.unical.mat.andlv.OutputReceiver} when a result is notify
      * @param aspServiceOut
      */
     abstract protected void receive(String aspServiceOut);
