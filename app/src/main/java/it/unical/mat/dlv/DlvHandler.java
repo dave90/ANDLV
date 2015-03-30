@@ -8,6 +8,7 @@ import android.content.ReceiverCallNotAllowedException;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.regex.Matcher;
@@ -27,10 +28,9 @@ public class DlvHandler extends ASPHandler{
 
     /**
      *
-     * @param context Application Context
      */
-    public DlvHandler(Context context){
-        this.context = context;
+    public DlvHandler(){
+
         dlvService = new DlvService();
     }
 
@@ -38,8 +38,9 @@ public class DlvHandler extends ASPHandler{
      * @param asCallback
      */
     @Override
-    public void start(AnswerSetCallback asCallback) {
+    public void start(Context context,AnswerSetCallback asCallback) {
         this.asCallbask = asCallback;
+        this.context = context;
         receiver = new OutputReceiver(this);
         killingDlvService();
         Intent intent = new Intent(context, dlvService.getClass());
@@ -56,16 +57,34 @@ public class DlvHandler extends ASPHandler{
      * @return ArrayList<AnswerSet> Contains Answer sets generated from an Answer Set Program String output
      */
     protected ArrayList<AnswerSet> parseResult(String outputToParse){
-        /*base version parser. Only for answerSets and not for weights
+        //base version parser. Only for answerSets and not for weights
         ArrayList<AnswerSet> answerSets = new ArrayList<AnswerSet>();
-        /*Pattern pattern = Pattern.compile("[{](.)*[}]");
+        Pattern pattern = Pattern.compile("[{](.*)[}]");
         Matcher matcher = pattern.matcher(outputToParse);
         while (matcher.find()) {
             AnswerSet answerSet = new AnswerSet(matcher.group());
             answerSets.add(answerSet);
+        }
+        /*ArrayList<AnswerSet> answerSets = new ArrayList<AnswerSet>();
+
+        Pattern pattern_weight = Pattern.compile("Best model. ([{].*[}])\nCost \\(\\[Weight.Level\\]\\). [<][\\[](\\d).(\\d)[\\]][>]|([{].*[}])");
+        Matcher matcher = pattern_weight.matcher(outputToParse);
+
+        while (matcher.find()) {
+
+            String key = matcher.group(2);
+            String value = matcher.group(3);
+            if(key==null && value == null){
+                AnswerSet answerSet = new AnswerSet(as);
+                answerSets.add(answerSet);
+            }
+            else {
+                HashMap<Integer,Integer> weight = new HashMap<Integer,Integer>();
+                weight.put(Integer.valueOf(key),Integer.valueOf(value));
+                AnswerSet answerSet = new AnswerSet(as,weight);
+            }
         }*/
-        //multi Thread version parser
-        ArrayList<AnswerSet> answerSets = answerSetsParser(outputToParse);
+
         return answerSets;
     }
     /**
@@ -106,43 +125,6 @@ public class DlvHandler extends ASPHandler{
 
         }
         Log.i("DlvHandler.killing[..]","New ASPService can be started ...");
-    }
-
-    //utility func. for parsing with two worker thread
-    private ArrayList<AnswerSet> answerSetsParser(String outputToParse){
-        Log.i("DlvHandler","MultiThread parsing start ...");
-        ArrayList<AnswerSet> answerSets = new ArrayList<AnswerSet>();
-        String start = "DLV [build BEN/Mar 26 2015   gcc 4.8]\n";
-        outputToParse = outputToParse.replace(start, ""); //delete String start from output
-
-        final CyclicBarrier barrier = new CyclicBarrier(3); //waits until worker threads end your task
-
-        DlvAnswerSetMatcher answerSetsWorker = new DlvAnswerSetMatcher(outputToParse,barrier);
-        answerSetsWorker.start();//starts DlvAnswerSetMatcher
-
-        DlvWeightMatcher weightsWorker = new DlvWeightMatcher(outputToParse,barrier);
-        weightsWorker.start();//starts DlvWeightMatcher
-
-        try {
-            barrier.await();//waits Threads end
-        } catch (InterruptedException e) {
-            Log.e("DlvHandler","CyclicBarrier ERROR");
-            e.printStackTrace();
-        } catch (BrokenBarrierException e) {
-            Log.e("DlvHandler", "CyclicBarrier ERROR");
-            e.printStackTrace();
-        }
-
-        //answer sets and weights index will be the same in case of weights matching
-        for (int i = 0; i < answerSetsWorker.getAnswerSets().size(); i++) {
-            if (weightsWorker.getWeightMaps().isEmpty()) { //if there aren't weights  match for answer sets
-                answerSets.add(new AnswerSet(answerSetsWorker.getAnswerSets().get(i)));//crete and add in ArrayList the AnswerSet i object without weight
-            } else { //if there are weights match for answer sets
-                answerSets.add(new AnswerSet(answerSetsWorker.getAnswerSets().get(i), weightsWorker.getWeightMaps().get(i))); //crete and add in ArrayList the AnswerSet i object with its weight
-            }
-        }
-        Log.i("DlvHandler","MultiThread parsing end");
-        return answerSets;
     }
 
 }
