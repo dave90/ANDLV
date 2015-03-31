@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import it.unical.mat.andlv.dlv.DLVHandler;
 import it.unical.mat.dlv.R;
 
 /**
@@ -17,10 +17,11 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AnswerSetCallback callb = new CallbackProva();
-        ASPHandler DLVHandler = new it.unical.mat.andlv.dlv.DLVHandler();
-        DLVHandler.addRowInput("a(1). b(X):-a(X).");
-        DLVHandler.start(this,callb);
+        ASPHandler DLVHand = new DLVHandler();
+        DLVHand.addRowInput("a(1). b(X):-a(X).");
+        DLVHand.start(getApplicationContext(),callb);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Dario Campisano on 27/03/2015.
- * <p>Test implementation of an AnswerSetCallback class</>
+ * <p>Test implementation of an {@link it.unical.mat.andlv.AnswerSetCallback} class</p>
  */
 public class CallbackProva implements AnswerSetCallback {
     public CallbackProva(){}

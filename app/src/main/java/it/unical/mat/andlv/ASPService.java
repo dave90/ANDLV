@@ -5,14 +5,16 @@ import android.content.Intent;
 import android.content.Context;
 
 /**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread. ASPService is an Abstract class that provide the basic functions
- * starting an Answer Set Program generic execution with its options.
- * <p></>
+ * Created by Dario Campisano on 23/03/2015.
+ * <p>ASPService is an {@link IntentService} subclass for handling asynchronous task requests in
+ * a service on a separate handler thread. ASPService class provides the basic functions
+ * starting an Answer Set Program generic execution with its options.</p>
  * @see android.app.IntentService
+ * @see android.content.Intent
+ * @see android.content.BroadcastReceiver
  */
 public abstract class ASPService extends IntentService {
-    //Intent messages/actions to start ASPService and to notify the result to the OutputReceiver
+    //Intent messages/actions/extras for ASPService start and BroadcastReceiver communication
     public static final String ACTION_SOLVE = "it.unical.mat.andlv.SOLVE";
 
     public static final String PROGRAM = "it.unical.mat.andlv.PROGRAM";
@@ -22,7 +24,7 @@ public abstract class ASPService extends IntentService {
     public static final String RESULT_NOTIFICATION = "it.unical.mat.andlv.RESULT_NOTIFICATION";
 
     /**
-     * Constructor name the worker thread
+     * Constructor
      * @see android.app.IntentService
      */
     public ASPService() {
@@ -30,7 +32,7 @@ public abstract class ASPService extends IntentService {
     }
 
     /**
-     * Execute IntentService worker thread through the Intent start received and publish the result
+     * Execute IntentService worker thread through the start Intent received and publish the result
      * sending an Intent to the {@link it.unical.mat.andlv.OutputReceiver}
      * @param intent
      * @see android.content.Intent
@@ -38,25 +40,25 @@ public abstract class ASPService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
-            final String action = intent.getAction();
-            if (ACTION_SOLVE.equals(action)) {
-                final String program = intent.getStringExtra(PROGRAM);//get the String Answer Set Program from the start Intent
-                final String options = intent.getStringExtra(OPTION);//get the options for the Answer Set Program execution
-                final String result = handleActionSolve(program, options);// the abstract method that starts Answer Set Program the execution
+            final String action = intent.getAction(); //get action sent with the Intent
+            if (ACTION_SOLVE.equals(action)) { //verify is an ACTION_SOLVE action and eventually get extra String sent in the Intent
+                final String program = intent.getStringExtra(PROGRAM);//get a String with PROGRAM tag that indentify program String
+                final String options = intent.getStringExtra(OPTION);//get a String with OPTION tag that indentify options String
+                final String result = handleActionSolve(program, options);//call the abstract method that handle a specific solve action
                 publishResults(result); //Send the result with a Broadcast Intent
             }
         }
     }
 
     /**
-     * Send a Broadcast Intent with the Answer Set Program result
+     * Send a Broadcast {@link android.content.Intent} with the Answer Set Program result
      * @param result
      * @see android.content.BroadcastReceiver
      * @see it.unical.mat.andlv.OutputReceiver
      * @see android.content.Intent
      */
     private void publishResults(String result) {
-        Intent intent = new Intent(RESULT_NOTIFICATION); //create a new Intent with specific RESULT_NOTIFIACTION
+        Intent intent = new Intent(RESULT_NOTIFICATION); //create a new Intent with specific RESULT_NOTIFICATION
         intent.putExtra(SOLVER_RESULT, result);//put the result in the Intent
         sendBroadcast(intent);//send a Brodcast Intent
     }

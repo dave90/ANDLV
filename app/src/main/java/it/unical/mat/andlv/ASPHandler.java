@@ -11,7 +11,6 @@ import java.util.ArrayList;
  */
 public abstract class ASPHandler {
 
-
     protected String options;//stores program options
     protected String program;//store an entire ASP program
 
@@ -56,7 +55,7 @@ public abstract class ASPHandler {
     }*/
 
     /**
-     * Create String from File
+     * Generate String from File
      * @param file
      * @return
      */
@@ -80,7 +79,7 @@ public abstract class ASPHandler {
     /**
      * Abstract method for result parsing and AnswerSets creation
      * @param outputToParse
-     * @return ArrayList<AnswerSet> Contains Answer sets generated from an Answer Set Program String output
+     * @return ArrayList<AnswerSet> Contains {@link it.unical.mat.andlv.AnswerSet} objects generated from an Answer Set Program String output
      * @see it.unical.mat.andlv.AnswerSet
      * @see java.util.ArrayList
      */

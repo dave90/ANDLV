@@ -4,15 +4,17 @@ import java.util.HashMap;
 
 /**
  * Created by Dario Campisano on 28/03/2015.
- * <p>AnswerSet class rapresents an ASP Answer Set and contains utility functions to handle it.</p>
+ * <p>AnswerSet class rapresents an Answer Set and contains get and set methods to handle it.</p>
+ * @see java.util.HashMap
  */
 public class AnswerSet {
-    private String answerSet;//String representing the AnswerSet
-    private HashMap<Integer,Integer> weightMap;//Weights of the Answer Set
+    private String answerSet;//String representing the Answer Set
+    private HashMap<Integer,Integer> weightMap;//Answer sets weights
 
     /**
      * Constructor intialize an AnswerSet object with a String containing the Answer Set
-     * @param outputString a String representing an Answer Set
+     * and an {@link java.util.HashMap} containing Answer Set weight
+     * @param outputString String representing an Answer Set
      */
     public AnswerSet(String outputString){
         this.answerSet = outputString;
@@ -20,8 +22,8 @@ public class AnswerSet {
     }
 
     /**
-     * Simple get function for the AnswerSet in String format
-     * @return answerSet
+     * Get function for the Answer Set in String format
+     * @return answerSet Answer Set in String format
      */
     public String getAnswerSet(){
         return this.answerSet;

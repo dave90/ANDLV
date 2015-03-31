@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public interface AnswerSetCallback {
     /** callback function for result handling
-     * @param answerSets ArrayList of AnswerSet objects
+     * @param answerSets {@link java.util.ArrayList} of {@link it.unical.mat.andlv.AnswerSet} objects
      * @see it.unical.mat.andlv.AnswerSet
      */
     public void callback(ArrayList<AnswerSet> answerSets);

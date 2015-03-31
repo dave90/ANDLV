@@ -1,6 +1,7 @@
 package it.unical.mat.andlv.dlv;
 
 import android.app.ActivityManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -17,32 +18,24 @@ import it.unical.mat.andlv.OutputReceiver;
 
 /**
  * Created by Dario Campisano on 23/03/2015.
- * <p>DLVHandler is an implementation of an ASPHandler used for a DLV ASP solver execution handling.It uses
- * an OutputReceiver class that notify a result and a DLVService class, with the properties of an IntentService, that provides a native method invoching DLV in an appropriate
- * working thread. An AnswerSerCallback class is used for result handling.
- * .</>
- *
- * <p></>
- *
+ * <p>DLVHandler is an implementation of an {@link it.unical.mat.andlv.ASPHandler} used for a DLV ASP solver execution handling.It uses
+ * an {@link it.unical.mat.andlv.OutputReceiver} class that notify a result from a {@link it.unical.mat.andlv.ASPService} implementation class that provides a native method invoching DLV in an appropriate
+ * working thread. An {@link it.unical.mat.andlv.AnswerSetCallback} class is used for result handling.
+ * .</p>
  * @see android.app.IntentService
  * @see android.content.BroadcastReceiver
  */
 public class DLVHandler extends ASPHandler {
     private Context context; //application context
-
-    private OutputReceiver receiver; //OutputReceiver is a BroadcastReceiver used to notify the result from DLVService
-    private DLVService dlvService; //DLVService used for result elaboration
-    private AnswerSetCallback asCallbask; //the callback
+    private BroadcastReceiver receiver; //OutputReceiver is a BroadcastReceiver used to notify the result from DLVService
+    private AnswerSetCallback asCallbask; //callback for result
 
     /**
      * Constructor inizialize the {@link it.unical.mat.andlv.dlv.DLVService}
      */
-    public DLVHandler(){
+    public DLVHandler(){super();}
 
-        dlvService = new DLVService();
-    }
-
-    /** Starts DLVService.
+    /** Starts DLVService and initialize Application {@link Context} and {@link it.unical.mat.andlv.AnswerSetCallback}
      * @param asCallback AnswerSetCallback object
      * @param context Context object
      * @see it.unical.mat.andlv.AnswerSetCallback
@@ -54,10 +47,10 @@ public class DLVHandler extends ASPHandler {
         this.context = context;
         receiver = new OutputReceiver(this);
         killingDlvService();
-        Intent intent = new Intent(context, dlvService.getClass());
-        intent.setAction(dlvService.ACTION_SOLVE);
-        intent.putExtra(dlvService.PROGRAM, this.program);
-        intent.putExtra(dlvService.OPTION, this.options);
+        Intent intent = new Intent(context, DLVService.class);
+        intent.setAction(DLVService.ACTION_SOLVE);
+        intent.putExtra(DLVService.PROGRAM, this.program);
+        intent.putExtra(DLVService.OPTION, this.options);
         context.registerReceiver(receiver, new IntentFilter(DLVService.RESULT_NOTIFICATION));
         context.startService(intent);
     }
@@ -83,7 +76,7 @@ public class DLVHandler extends ASPHandler {
     }
     /**
      * Called from the {@link it.unical.mat.andlv.OutputReceiver}.
-     * Calls the {@link it.unical.mat.andlv.AnswerSetCallback} callback function for result Handling.
+     * Calls the {@link it.unical.mat.andlv.AnswerSetCallback} callback function for result handling.
      * @param aspServiceOut
      * @see it.unical.mat.andlv.AnswerSetCallback
      */
@@ -98,7 +91,7 @@ public class DLVHandler extends ASPHandler {
      * @see android.app.ActivityManager
      */
     void killingDlvService(){
-        Log.i("info", "Verifying if " + dlvService.getClass().getName() + " is already Running ...");
+        Log.i("DLVHandler", "Verifying if " + DLVService.class.getName() + " is already Running ...");
 
         boolean isServiceRunning = true;
 
@@ -108,11 +101,11 @@ public class DLVHandler extends ASPHandler {
             ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
             isServiceRunning = false;
-            //see if DLVService is the list of running service
+            //see if DLVService is in running service list
             for (ActivityManager.RunningServiceInfo processInfo : manager.getRunningServices(Integer.MAX_VALUE)) {
-                if (processInfo.service.getClassName().equals(dlvService.getClass().getName())) {
+                if (processInfo.service.getClassName().equals(DLVService.class.getName())) {
                     isServiceRunning = true;
-                    Log.i("DlvHandler.killing[..]", "Wait " + processInfo.service.getClassName() + " is already running!");
+                    Log.i("DlvHandler", "Wait " + processInfo.service.getClassName() + " is already running!");
                     break;
                 }
             }
@@ -124,7 +117,7 @@ public class DLVHandler extends ASPHandler {
             }
 
         }
-        Log.i("DlvHandler.killing[..]","New ASPService can be started ...");
+        Log.i("DlvHandler","New ASPService can be started ...");
     }
 
 }

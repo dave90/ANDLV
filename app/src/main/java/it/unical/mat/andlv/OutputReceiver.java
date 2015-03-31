@@ -31,21 +31,22 @@ public class OutputReceiver extends BroadcastReceiver{
     }
 
     /**
-     *
+     * onReceive method get a Broadcast {@link android.content.Intent} sent, then send result to {@link ASPService} initialized with the {@link it.unical.mat.andlv.OutputReceiver} Constructor
      * @param context Application Context
      * @param intent get ASPService execution result when it is ready
      * @see android.content.Context
      * @see android.content.Intent
+     * @see android.os.Bundle
      */
     @Override
     public void onReceive(Context context, Intent intent) {
 
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            String ASPResult = bundle.getString(ASPService.SOLVER_RESULT);//get the result from a generic ASPService
+            String ASPResult = bundle.getString(ASPService.SOLVER_RESULT);//get result String with SOLVER_RESULT tag from a object
             if (ASPResult != null) {
                 Log.i("OutputReceiver", "Call to ASPHandler.receive(String) method");
-                aspHandler.receive(ASPResult);//Send result to the generic ASPHandler
+                aspHandler.receive(ASPResult);//Send result to the generic ASPHandler through receive() method
             }
         }
     }
