@@ -32,7 +32,7 @@ public abstract class ASPService extends IntentService {
 
     /**
      * Execute IntentService worker thread through the start Intent received and publish the result
-     * sending an Intent to the {@link it.unical.mat.andlv.OutputReceiver}
+     * sending an Intent to the {@link OutputReceiver}
      * @param intent
      * @see android.content.Intent
      */
@@ -53,7 +53,7 @@ public abstract class ASPService extends IntentService {
      * Send a Broadcast {@link android.content.Intent} with the Answer Set Program result
      * @param result
      * @see android.content.BroadcastReceiver
-     * @see it.unical.mat.andlv.OutputReceiver
+     * @see OutputReceiver
      * @see android.content.Intent
      */
     private void publishResults(String result) {

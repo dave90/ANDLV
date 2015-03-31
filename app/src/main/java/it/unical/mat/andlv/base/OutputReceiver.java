@@ -1,13 +1,10 @@
-package it.unical.mat.andlv;
+package it.unical.mat.andlv.base;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-
-import it.unical.mat.andlv.base.ASPHandler;
-import it.unical.mat.andlv.base.ASPService;
 
 /**
  * Created by Dario Campisano on 27/03/2015.

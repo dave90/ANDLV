@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import it.unical.mat.andlv.base.AnswerSet;
 import it.unical.mat.andlv.base.AnswerSetCallback;
 
 /**

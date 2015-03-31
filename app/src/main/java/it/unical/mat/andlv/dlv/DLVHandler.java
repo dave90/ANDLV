@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import it.unical.mat.andlv.OutputReceiver;
 import it.unical.mat.andlv.base.ASPHandler;
-import it.unical.mat.andlv.AnswerSet;
+import it.unical.mat.andlv.base.AnswerSet;
 import it.unical.mat.andlv.base.AnswerSetCallback;
+import it.unical.mat.andlv.base.OutputReceiver;
 
 /**
  * Created by Dario Campisano on 23/03/2015.
  * <p>DLVHandler is an implementation of an {@link it.unical.mat.andlv.base.ASPHandler} used for a DLV ASP solver execution handling.It uses
- * an {@link it.unical.mat.andlv.OutputReceiver} class that notify a result from a {@link it.unical.mat.andlv.base.ASPService} implementation class that provides a native method invoching DLV in an appropriate
+ * an {@link it.unical.mat.andlv.base.OutputReceiver} class that notify a result from a {@link it.unical.mat.andlv.base.ASPService} implementation class that provides a native method invoching DLV in an appropriate
  * working thread. An {@link it.unical.mat.andlv.base.AnswerSetCallback} class is used for result handling.
  * .</p>
  * @see android.app.IntentService
@@ -58,7 +58,7 @@ public class DLVHandler extends ASPHandler {
     /**
      * Receive an outputToParse String that contains the execution result.
      * @param outputToParse
-     * @return ArrayList<AnswerSet> Contains {@link it.unical.mat.andlv.AnswerSet} object generated from an Answer Set Program String output
+     * @return ArrayList<AnswerSet> Contains {@link it.unical.mat.andlv.base.AnswerSet} object generated from an Answer Set Program String output
      * @see java.util.ArrayList
      * @see it.unical.mat.andlv.base.AnswerSetCallback
      */
@@ -81,7 +81,7 @@ public class DLVHandler extends ASPHandler {
      * @see it.unical.mat.andlv.base.AnswerSetCallback
      */
     @Override
-    public void receive(String aspServiceOut){
+    protected void receive(String aspServiceOut){
         ArrayList<AnswerSet> answerSets =  parseResult(aspServiceOut);
         asCallbask.callback(answerSets);
     }

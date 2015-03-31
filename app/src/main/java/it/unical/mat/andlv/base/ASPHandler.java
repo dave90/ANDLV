@@ -4,12 +4,10 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-import it.unical.mat.andlv.AnswerSet;
-
 /**
  * Created by Dario Campisano on 23/03/2015.
  * <p>ASPHandler is an Abstract class. It provides generic methods for an Answer Set Program execution handling.
- * Get an Answer Set Program and its options for the execution. Provide a public methos to start the Answer Set Program execution. </>
+ * Get an Answer Set Program and its options for the execution. Provide a public methos to start the Answer Set Program execution. </p>
  */
 public abstract class ASPHandler {
 
@@ -81,17 +79,17 @@ public abstract class ASPHandler {
     /**
      * Abstract method for result parsing and AnswerSets creation
      * @param outputToParse
-     * @return ArrayList<AnswerSet> Contains {@link it.unical.mat.andlv.AnswerSet} objects generated from an Answer Set Program String output
-     * @see it.unical.mat.andlv.AnswerSet
+     * @return ArrayList<AnswerSet> Contains {@link AnswerSet} objects generated from an Answer Set Program String output
+     * @see AnswerSet
      * @see java.util.ArrayList
      */
     abstract protected ArrayList<AnswerSet> parseResult(String outputToParse);
 
     /**
-     * Abstract method called from an {@link it.unical.mat.andlv.OutputReceiver} when a result is notify
+     * Abstract method called from an {@link OutputReceiver} when a result is notify
      * @param aspServiceOut
      */
-    abstract public void receive(String aspServiceOut);
+    abstract protected void receive(String aspServiceOut);
 
 
 }
