@@ -1,8 +1,7 @@
-package it.unical.mat.andlv;
+package it.unical.mat.andlv.base;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.Context;
 
 /**
  * Created by Dario Campisano on 23/03/2015.

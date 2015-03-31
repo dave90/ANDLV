@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import it.unical.mat.andlv.ASPHandler;
-import it.unical.mat.andlv.AnswerSet;
-import it.unical.mat.andlv.AnswerSetCallback;
 import it.unical.mat.andlv.OutputReceiver;
+import it.unical.mat.andlv.base.ASPHandler;
+import it.unical.mat.andlv.AnswerSet;
+import it.unical.mat.andlv.base.AnswerSetCallback;
 
 /**
  * Created by Dario Campisano on 23/03/2015.
- * <p>DLVHandler is an implementation of an {@link it.unical.mat.andlv.ASPHandler} used for a DLV ASP solver execution handling.It uses
- * an {@link it.unical.mat.andlv.OutputReceiver} class that notify a result from a {@link it.unical.mat.andlv.ASPService} implementation class that provides a native method invoching DLV in an appropriate
- * working thread. An {@link it.unical.mat.andlv.AnswerSetCallback} class is used for result handling.
+ * <p>DLVHandler is an implementation of an {@link it.unical.mat.andlv.base.ASPHandler} used for a DLV ASP solver execution handling.It uses
+ * an {@link it.unical.mat.andlv.OutputReceiver} class that notify a result from a {@link it.unical.mat.andlv.base.ASPService} implementation class that provides a native method invoching DLV in an appropriate
+ * working thread. An {@link it.unical.mat.andlv.base.AnswerSetCallback} class is used for result handling.
  * .</p>
  * @see android.app.IntentService
  * @see android.content.BroadcastReceiver
@@ -35,10 +35,10 @@ public class DLVHandler extends ASPHandler {
      */
     public DLVHandler(){super();}
 
-    /** Starts DLVService and initialize Application {@link Context} and {@link it.unical.mat.andlv.AnswerSetCallback}
+    /** Starts DLVService and initialize Application {@link Context} and {@link it.unical.mat.andlv.base.AnswerSetCallback}
      * @param asCallback AnswerSetCallback object
      * @param context Context object
-     * @see it.unical.mat.andlv.AnswerSetCallback
+     * @see it.unical.mat.andlv.base.AnswerSetCallback
      * @see android.content.Context
      */
     @Override
@@ -60,7 +60,7 @@ public class DLVHandler extends ASPHandler {
      * @param outputToParse
      * @return ArrayList<AnswerSet> Contains {@link it.unical.mat.andlv.AnswerSet} object generated from an Answer Set Program String output
      * @see java.util.ArrayList
-     * @see it.unical.mat.andlv.AnswerSetCallback
+     * @see it.unical.mat.andlv.base.AnswerSetCallback
      */
     protected ArrayList<AnswerSet> parseResult(String outputToParse){
         //base version parser. Only for answerSets and not for weights
@@ -75,13 +75,13 @@ public class DLVHandler extends ASPHandler {
         return answerSets;
     }
     /**
-     * Called from the {@link it.unical.mat.andlv.OutputReceiver}.
-     * Calls the {@link it.unical.mat.andlv.AnswerSetCallback} callback function for result handling.
+     * Called from the {@link OutputReceiver}.
+     * Calls the {@link it.unical.mat.andlv.base.AnswerSetCallback} callback function for result handling.
      * @param aspServiceOut
-     * @see it.unical.mat.andlv.AnswerSetCallback
+     * @see it.unical.mat.andlv.base.AnswerSetCallback
      */
     @Override
-    protected void receive(String aspServiceOut){
+    public void receive(String aspServiceOut){
         ArrayList<AnswerSet> answerSets =  parseResult(aspServiceOut);
         asCallbask.callback(answerSets);
     }

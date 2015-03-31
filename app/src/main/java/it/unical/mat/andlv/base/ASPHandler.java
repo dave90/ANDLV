@@ -1,8 +1,10 @@
-package it.unical.mat.andlv;
+package it.unical.mat.andlv.base;
 
 import android.content.Context;
 
 import java.util.ArrayList;
+
+import it.unical.mat.andlv.AnswerSet;
 
 /**
  * Created by Dario Campisano on 23/03/2015.
@@ -23,7 +25,7 @@ public abstract class ASPHandler {
      * that is called for the result handling
      * @param asCallback
      * @param context
-     * @see it.unical.mat.andlv.AnswerSetCallback
+     * @see it.unical.mat.andlv.base.AnswerSetCallback
      * @see android.content.Context
      */
     public abstract void start(Context context,AnswerSetCallback asCallback);
@@ -89,7 +91,7 @@ public abstract class ASPHandler {
      * Abstract method called from an {@link it.unical.mat.andlv.OutputReceiver} when a result is notify
      * @param aspServiceOut
      */
-    abstract protected void receive(String aspServiceOut);
+    abstract public void receive(String aspServiceOut);
 
 
 }

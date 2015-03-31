@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import it.unical.mat.andlv.base.ASPHandler;
+import it.unical.mat.andlv.base.ASPService;
+
 /**
  * Created by Dario Campisano on 27/03/2015.
  * <p>OutputReceiver is an implementation of a BrodcastReceiver class. It is used to receive, in this case, a result from an ASPService</>
@@ -23,7 +26,7 @@ public class OutputReceiver extends BroadcastReceiver{
     }
 
     /**
-     * Costructor initializing a generic {@link it.unical.mat.andlv.ASPHandler}
+     * Costructor initializing a generic {@link it.unical.mat.andlv.base.ASPHandler}
      * @param aspHandler ASP handler to notify of an available result
      */
     public OutputReceiver(ASPHandler aspHandler){
@@ -31,7 +34,7 @@ public class OutputReceiver extends BroadcastReceiver{
     }
 
     /**
-     * onReceive method get a Broadcast {@link android.content.Intent} sent, then send result to {@link ASPService} initialized with the {@link it.unical.mat.andlv.OutputReceiver} Constructor
+     * onReceive method get a Broadcast {@link android.content.Intent} sent, then send result to {@link it.unical.mat.andlv.base.ASPService} initialized with the {@link OutputReceiver} Constructor
      * @param context Application Context
      * @param intent get ASPService execution result when it is ready
      * @see android.content.Context

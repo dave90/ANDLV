@@ -1,6 +1,8 @@
-package it.unical.mat.andlv;
+package it.unical.mat.andlv.base;
 
 import java.util.ArrayList;
+
+import it.unical.mat.andlv.AnswerSet;
 
 /**
  * Created by Dario Campisano on 23/03/2015.

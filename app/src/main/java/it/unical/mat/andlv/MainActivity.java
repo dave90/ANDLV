@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import it.unical.mat.andlv.base.ASPHandler;
+import it.unical.mat.andlv.base.AnswerSetCallback;
 import it.unical.mat.andlv.dlv.DLVHandler;
 import it.unical.mat.dlv.R;
 
