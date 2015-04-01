@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public abstract class AnswerSets {
 
-    private String answerSets; //contains String Answer Sets
+    private String answerSets; //contains String Answer Sets (output generated from ASPService)
 
     private ArrayList<AnswerSet> answerSetsList; //ArrayList of Answer Sets
 
