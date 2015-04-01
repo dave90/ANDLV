@@ -30,7 +30,7 @@ public abstract class AnswerSets {
     }
 
     /**
-     * Parse outputToParse string and generate AnswerSet objects
+     * Parse outputToParse String and generate AnswerSet objects
      * @param outputToParse
      */
     abstract protected void parse(String outputToParse);//Create AnswerSet objects from outputToParse String. Then add objects to answerSetList
@@ -40,7 +40,6 @@ public abstract class AnswerSets {
      * @return answerSetList
      */
     public ArrayList<AnswerSet> getAnswerSetsList() {
-
         return answerSetsList;
     }
 
