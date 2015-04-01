@@ -31,7 +31,7 @@ public class DLVHandler extends ASPHandler {
     private AnswerSetCallback asCallbask; //callback for result
 
     /**
-     * Constructor inizialize the {@link it.unical.mat.andlv.dlv.DLVService}
+     * Constructor inizialize the {@link DLVService}
      */
     public DLVHandler(){super();}
 
