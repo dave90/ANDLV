@@ -21,7 +21,7 @@ public abstract class AnswerSets {
     }
 
     /**
-     * Constructor initialize AnswerSets object with a String that contains ALL Answer Set generated.
+     * Constructor initialize AnswerSets object with a String that contains ALL Answer Set generated from ASPService.
      * @param answerSets
      */
     public AnswerSets(String answerSets){
