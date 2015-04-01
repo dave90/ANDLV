@@ -2,27 +2,33 @@ package it.unical.mat.andlv;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import it.unical.mat.andlv.base.ASPHandler;
+import it.unical.mat.andlv.base.AnswerSet;
 import it.unical.mat.andlv.base.AnswerSetCallback;
+import it.unical.mat.andlv.base.AnswerSets;
 import it.unical.mat.andlv.dlv.DLVHandler;
 import it.unical.mat.dlv.R;
 
 /**
- * Created by Dario Campisano on 23/03/2015.
  * <p>Test MainActivity for andlv </p>
  */
-public class MainActivity extends Activity{
+public class MainActivity extends Activity implements AnswerSetCallback{
+
+    ASPHandler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AnswerSetCallback callb = new CallbackProva();
-        ASPHandler DLVHand = new DLVHandler();
-        DLVHand.addRowInput("a(1). b(X):-a(X).");
-        DLVHand.start(getApplicationContext(),callb);
+        handler = new DLVHandler();
+        handler.addRowInput("a(0). b(X):-a(X).");
+        handler.start(getApplicationContext(),this);
     }
 
 
@@ -34,5 +40,14 @@ public class MainActivity extends Activity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void callback(AnswerSets answerSets) {
+        List<AnswerSet> answerSetList=answerSets.getAnswerSetsList();
+        for(AnswerSet answerSet:answerSetList){
+            Log.i("RESULT ",answerSet.getAnswerSet());
+        }
+
     }
 }

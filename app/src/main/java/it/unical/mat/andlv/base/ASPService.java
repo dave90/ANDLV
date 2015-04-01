@@ -39,12 +39,16 @@ public abstract class ASPService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
-            final String action = intent.getAction(); //get action sent with the Intent
-            if (ACTION_SOLVE.equals(action)) { //verify is an ACTION_SOLVE action and eventually get extra String sent in the Intent
-                final String program = intent.getStringExtra(PROGRAM);//get a String with PROGRAM tag that indentify program String
-                final String options = intent.getStringExtra(OPTION);//get a String with OPTION tag that indentify options String
-                final String result = handleActionSolve(program, options);//call the abstract method that handle a specific solve action
-                publishResults(result); //Send the result with a Broadcast Intent
+            final String action = intent.getAction();
+            if (ACTION_SOLVE.equals(action)) {
+                //get a String with PROGRAM tag that indentify program String
+                //get a String with OPTION tag that indentify options String
+                //call the abstract method that handle a specific solve action
+                //Send the result with a Broadcast Intent
+                final String program = intent.getStringExtra(PROGRAM);
+                final String options = intent.getStringExtra(OPTION);
+                final String result = handleActionSolve(program, options);
+                publishResults(result);
             }
         }
     }
@@ -57,9 +61,9 @@ public abstract class ASPService extends IntentService {
      * @see android.content.Intent
      */
     private void publishResults(String result) {
-        Intent intent = new Intent(RESULT_NOTIFICATION); //create a new Intent with specific RESULT_NOTIFICATION
-        intent.putExtra(SOLVER_RESULT, result);//put the result in the Intent
-        sendBroadcast(intent);//send a Brodcast Intent
+        Intent intent = new Intent(RESULT_NOTIFICATION);
+        intent.putExtra(SOLVER_RESULT, result);
+        sendBroadcast(intent);
     }
 
     /**

@@ -3,7 +3,6 @@ package it.unical.mat.andlv.base;
 import java.util.HashMap;
 
 /**
- * Created by Dario Campisano on 28/03/2015.
  * <p>AnswerSet class rapresents an Answer Set and contains get and set methods to handle it.</p>
  * @see java.util.HashMap
  */
@@ -29,12 +28,4 @@ public class AnswerSet {
         return this.answerSet;
     }
 
-    /*public HashMap<Integer, Integer> getWeightMap() {
-        return this.weightMap;
-    }*/
-
-
-    /*public boolean isWeightMapEmpty(){
-        return this.isMapEmpty;
-    }*/
 }

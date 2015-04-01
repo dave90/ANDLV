@@ -5,7 +5,6 @@ import android.content.Context;
 import java.util.ArrayList;
 
 /**
- * Created by Dario Campisano on 23/03/2015.
  * <p>ASPHandler is an Abstract class. It provides generic methods for an Answer Set Program execution handling.
  * Get an Answer Set Program and its options for the execution. Provide a public methos to start the Answer Set Program execution. </p>
  */
@@ -44,46 +43,6 @@ public abstract class ASPHandler {
         this.program = rowInput;
     }
 
-    /**
-     *  Get Answer Set Program from filesystem
-     * @param
-     */
-    /*public void addFileInput(String filePath){
-        File programFromPath = new File(filePath);
-        String aspProgram = fileToString(programFromPath);
-        this.program = this.program.concat(aspProgram + "\n");
-    }*/
-
-    /**
-     * Generate String from File
-     * @param file
-     * @return
-     */
-    /*private String fileToString(File file){
-        StringBuilder text = new StringBuilder();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-
-                    text.append(line + "\n");
-            }
-            br.close();
-        }
-        catch (IOException e) {
-            Log.e("ASPHandler.fileToString","Error reading file: " + file.getAbsolutePath());
-        }
-        return text.toString();
-    }*/
-
-    /**
-     * Abstract method for result parsing and AnswerSets creation
-     * @param outputToParse
-     * @return ArrayList<AnswerSet> Contains {@link AnswerSet} objects generated from an Answer Set Program String output
-     * @see AnswerSet
-     * @see java.util.ArrayList
-     */
-    abstract protected ArrayList<AnswerSet> parseResult(String outputToParse);
 
     /**
      * Abstract method called from an {@link OutputReceiver} when a result is notify

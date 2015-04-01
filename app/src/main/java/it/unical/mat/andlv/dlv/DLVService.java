@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import it.unical.mat.andlv.base.ASPService;
 
 /**
- * Created by Dario Campisano on 25/03/2015.
  */
 
 /**
@@ -22,10 +21,13 @@ import it.unical.mat.andlv.base.ASPService;
 
 public class DLVService extends ASPService {
 
+    private static final String FILENAME = "tmp_program";
+
+
     //load the static library that contains DLV code compiled for arm processors
-    /*static{
+    static{
         System.loadLibrary("dlvJNI");
-    }*/
+    }
     /**
      * Default Constructor {@link it.unical.mat.andlv.base.ASPService}
      */
@@ -40,23 +42,21 @@ public class DLVService extends ASPService {
     @Override
     protected String handleActionSolve(String program, String options) {
         Log.i("DlvSevice", "Launch service");
-        String filename = "dlvfile";//temporary file name
-        File file = new File(this.getFilesDir(), filename);//create the temporary file
+        File file = new File(this.getFilesDir(), FILENAME);
 
         FileOutputStream outputStream = null;
 
         try {
             outputStream = new FileOutputStream(file);
-            outputStream.write(program.getBytes());//writes program String on File file
+            outputStream.write(program.getBytes());
             outputStream.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //String result = dlvMain(options + " " + file.getAbsolutePath());//call to DLV. Returns String DLV result
-        String result = "RES";
-        return result;//return a String containing output result
+        String result = dlvMain(options + " " + file.getAbsolutePath());
+        return result;
     }
 
     /**
@@ -64,7 +64,7 @@ public class DLVService extends ASPService {
      * @param filePath the path of a temporary file storing DLV program
      * @return String result computed from DLV
      */
-    //sprivate native String dlvMain(String filePath);
+    private native String dlvMain(String filePath);
 
     /**
      * Close DLVService and kill the process corresponding.
@@ -73,7 +73,6 @@ public class DLVService extends ASPService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("DlvSevice", "DlvService killed");
         android.os.Process.killProcess(android.os.Process.myPid());//kill the process corresponding to this DLVService
     }
 }

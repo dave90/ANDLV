@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * Created by Dario Campisano on 27/03/2015.
@@ -13,14 +12,6 @@ import android.util.Log;
 public class OutputReceiver extends BroadcastReceiver{
 
     private ASPHandler aspHandler; //A generic ASPHandeler
-
-    /**
-     * Default constructor.
-     * @see android.content.BroadcastReceiver
-     */
-    public OutputReceiver() {
-        super();
-    }
 
     /**
      * Costructor initializing a generic {@link it.unical.mat.andlv.base.ASPHandler}
@@ -43,10 +34,9 @@ public class OutputReceiver extends BroadcastReceiver{
 
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            String ASPResult = bundle.getString(ASPService.SOLVER_RESULT);//get result String with SOLVER_RESULT tag from a object
+            String ASPResult = bundle.getString(ASPService.SOLVER_RESULT);
             if (ASPResult != null) {
-                Log.i("OutputReceiver", "Call to ASPHandler.receive(String) method");
-                aspHandler.receive(ASPResult);//Send result to the generic ASPHandler through receive() method
+                aspHandler.receive(ASPResult);
             }
         }
     }
