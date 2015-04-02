@@ -1,6 +1,15 @@
 package it.unical.mat.andlv.base;
 
+import android.util.Log;
+
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import it.unical.mat.andlv.base.mapper.ASPMapper;
 
 /**
  * <p>AnswerSet class rapresents an Answer Set and contains get and set methods to handle it.</p>
@@ -26,6 +35,22 @@ public class AnswerSet {
      */
     public String getAnswerSet(){
         return this.answerSet;
+    }
+
+    public Set<Object> getAnswerObjects() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        Set<Object> objectsAtom=new HashSet<>();
+        ASPMapper mapper=ASPMapper.getInstance();
+        String[] atoms=answerSet.split(", ");
+        if(atoms.length>0){
+            atoms[0]=atoms[0].substring(1);
+            atoms[atoms.length-1]=atoms[atoms.length-1].substring(0, atoms[atoms.length-1].length() - 1);
+            for(String atom:atoms) {
+                Log.i("ATOM ",atom);
+                objectsAtom.add(mapper.getObject(atom));
+            }
+        }
+
+        return objectsAtom;
     }
 
 }
