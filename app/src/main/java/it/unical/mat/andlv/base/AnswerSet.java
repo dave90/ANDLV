@@ -44,10 +44,9 @@ public class AnswerSet {
         if(atoms.length>0){
             atoms[0]=atoms[0].substring(1);
             atoms[atoms.length-1]=atoms[atoms.length-1].substring(0, atoms[atoms.length-1].length() - 1);
-            for(String atom:atoms) {
-                Log.i("ATOM ",atom);
+            for(String atom:atoms)
                 objectsAtom.add(mapper.getObject(atom));
-            }
+
         }
 
         return objectsAtom;

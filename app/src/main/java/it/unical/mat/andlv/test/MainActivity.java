@@ -30,9 +30,9 @@ public class MainActivity extends Activity implements AnswerSetCallback{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         handler = new DLVHandler();
-        handler.addRowInput("a(0,34).a(1,34). p(X,\"CIAO\"):-a(X,_).");
-        handler.addOption("-pfilter=p");
-        ASPMapper.getInstance().registerClass(Person.class);
+        handler.addRowInput(BurningCalories.program+RandomFact.fact1000);
+        handler.addOption("-pfilter=activity_to_do");
+        ASPMapper.getInstance().registerClass(ActivityToDo.class);
         handler.start(getApplicationContext(),this);
     }
 
@@ -54,7 +54,7 @@ public class MainActivity extends Activity implements AnswerSetCallback{
             Log.i("RESULT ",answerSet.getAnswerSet());
             try {
                 for(Object obj:answerSet.getAnswerObjects())
-                    System.out.println(obj.toString());
+                    Log.i("ATOM",obj.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
