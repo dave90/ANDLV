@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import it.unical.mat.andlv.base.ASPHandler;
@@ -15,7 +14,6 @@ import it.unical.mat.andlv.base.AnswerSetCallback;
 import it.unical.mat.andlv.base.AnswerSets;
 import it.unical.mat.andlv.base.mapper.ASPMapper;
 import it.unical.mat.andlv.dlv.DLVHandler;
-import it.unical.mat.andlv.test.Person;
 import it.unical.mat.dlv.R;
 
 /**
@@ -30,7 +28,7 @@ public class MainActivity extends Activity implements AnswerSetCallback{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         handler = new DLVHandler();
-        handler.addRowInput(BurningCalories.program+RandomFact.fact1000);
+        handler.addRowInput(BurningCalories.program+ Edb.TRUE_FACT);
         handler.addOption("-pfilter=activity_to_do");
         ASPMapper.getInstance().registerClass(ActivityToDo.class);
         handler.start(getApplicationContext(),this);
