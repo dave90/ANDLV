@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements AnswerSetCallback{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         handler = new DLVHandler();
-        handler.addRowInput(BurningCalories.program+ Edb.TRUE_FACT);
+        handler.addRawInput(BurningCalories.program + Edb.RANDOM_1000_FACT);
         handler.addOption("-pfilter=activity_to_do");
         ASPMapper.getInstance().registerClass(ActivityToDo.class);
         handler.start(getApplicationContext(),this);
@@ -47,7 +47,7 @@ public class MainActivity extends Activity implements AnswerSetCallback{
 
     @Override
     public void callback(AnswerSets answerSets) {
-        List<AnswerSet> answerSetList=answerSets.getAnswerSetsList();
+       List<AnswerSet> answerSetList=answerSets.getAnswerSetsList();
         for(AnswerSet answerSet:answerSetList){
             Log.i("RESULT ",answerSet.getAnswerSet());
             try {

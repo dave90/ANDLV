@@ -2,8 +2,6 @@ package it.unical.mat.andlv.base;
 
 import android.content.Context;
 
-import java.util.ArrayList;
-
 /**
  * <p>ASPHandler is an Abstract class. It provides generic methods for an Answer Set Program execution handling.
  * Get an Answer Set Program and its options for the execution. Provide a public methos to start the Answer Set Program execution. </p>
@@ -37,10 +35,10 @@ public abstract class ASPHandler {
 
     /**
      *  Add an Answer Set Program input
-     * @param rowInput
+     * @param rawInput
      */
-    public void addRowInput(String rowInput){
-        this.program = rowInput;
+    public void addRawInput(String rawInput){
+        this.program = rawInput;
     }
 
 

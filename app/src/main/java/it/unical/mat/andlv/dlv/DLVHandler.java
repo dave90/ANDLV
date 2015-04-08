@@ -1,20 +1,13 @@
 package it.unical.mat.andlv.dlv;
 
 import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import it.unical.mat.andlv.base.ASPHandler;
-import it.unical.mat.andlv.base.AnswerSet;
 import it.unical.mat.andlv.base.AnswerSetCallback;
-import it.unical.mat.andlv.base.AnswerSets;
 import it.unical.mat.andlv.base.OutputReceiver;
 
 /**
@@ -55,7 +48,7 @@ public class DLVHandler extends ASPHandler {
         intent.putExtra(DLVService.PROGRAM, this.program);
         intent.putExtra(DLVService.OPTION, this.options);
         context.registerReceiver(receiver, new IntentFilter(DLVService.RESULT_NOTIFICATION));
-        Log.i(getClass().getName()," start service with program "+program);
+        Log.i(getClass().getName()," start service");
         context.startService(intent);
     }
 
