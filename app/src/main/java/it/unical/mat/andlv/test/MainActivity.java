@@ -28,9 +28,14 @@ public class MainActivity extends Activity implements AnswerSetCallback{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         handler = new DLVHandler();
-        handler.addRawInput(BurningCalories.program + Edb.RANDOM_1000_FACT);
+        handler.addRawInput(BurningCalories.program);
+        //handler.addRawInput(Edb.RANDOM_1000_FACT);
+        //ASPMapper.getInstance().registerClass(ActivityToDo.class);
+        ActivityToDo activity=new ActivityToDo();
+        activity.setType("walking");
+        activity.setHowLong(40);
         handler.addOption("-pfilter=activity_to_do");
-        ASPMapper.getInstance().registerClass(ActivityToDo.class);
+        handler.addInput(activity);
         handler.start(getApplicationContext(),this);
     }
 

@@ -2,18 +2,22 @@ package it.unical.mat.andlv.base;
 
 import android.content.Context;
 
+import java.util.Set;
+
+import it.unical.mat.andlv.base.mapper.ASPMapper;
+
 /**
  * <p>ASPHandler is an Abstract class. It provides generic methods for an Answer Set Program execution handling.
  * Get an Answer Set Program and its options for the execution. Provide a public methos to start the Answer Set Program execution. </p>
  */
 public abstract class ASPHandler {
 
-    protected String options;//stores program options
-    protected String program;//store an entire ASP program
+    protected StringBuilder options;//stores program options
+    protected StringBuilder program;//store an entire ASP program
 
     public ASPHandler(){
-        this.options = "";
-        this.program = "";
+        this.options = new StringBuilder();
+        this.program = new StringBuilder();
     }
 
     /** Execute the Answer Set Program and get AnswerSetCallback implemented
@@ -30,7 +34,19 @@ public abstract class ASPHandler {
      * @param options
      */
     public void addOption(String options){
-        this.options = options;
+        this.options.append(options);
+    }
+
+    public void addInput(Object inputObj){
+        try{
+            program.append(ASPMapper.getInstance().getString(inputObj)).append(".");
+        }
+        catch(Exception e){}
+    }
+
+    public void addInput(Set<Object> inputObjs){
+        for(Object inputObj:inputObjs)
+            addInput(inputObj);
     }
 
     /**
@@ -38,7 +54,7 @@ public abstract class ASPHandler {
      * @param rawInput
      */
     public void addRawInput(String rawInput){
-        this.program = rawInput;
+        program.append(rawInput);
     }
 
 

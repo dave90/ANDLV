@@ -59,7 +59,7 @@ public class DLVService extends ASPService {
         long startTime = System.nanoTime();
         String result = dlvMain(options + " " + file.getAbsolutePath());
         long stopTime = System.nanoTime();
-        Log.i("Execution Time DLV", Long.toString(TimeUnit.NANOSECONDS.toMillis(stopTime - startTime)));
+        Log.i("DLV Execution Time", Long.toString(TimeUnit.NANOSECONDS.toMillis(stopTime - startTime)));
         return result;
     }
 

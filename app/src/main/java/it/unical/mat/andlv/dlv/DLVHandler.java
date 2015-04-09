@@ -45,8 +45,8 @@ public class DLVHandler extends ASPHandler {
         killingDlvService();
         Intent intent = new Intent(context, DLVService.class);
         intent.setAction(DLVService.ACTION_SOLVE);
-        intent.putExtra(DLVService.PROGRAM, this.program);
-        intent.putExtra(DLVService.OPTION, this.options);
+        intent.putExtra(DLVService.PROGRAM, this.program.toString());
+        intent.putExtra(DLVService.OPTION, this.options.toString());
         context.registerReceiver(receiver, new IntentFilter(DLVService.RESULT_NOTIFICATION));
         Log.i(getClass().getName()," start service");
         context.startService(intent);

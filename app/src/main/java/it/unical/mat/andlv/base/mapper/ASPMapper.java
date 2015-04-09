@@ -12,12 +12,21 @@ public class ASPMapper {
 	private static ASPMapper mapper;
 	
 	private Map<String,Class<?>> predicateClass;
+    private Map<Class, Map<String,Method>> classSetterMethod;
 	
-	private ASPMapper(){predicateClass=new HashMap<>();}
+	private ASPMapper(){
+        predicateClass=new HashMap<>();
+        classSetterMethod=new HashMap<>();
+    }
 	
 	public String registerClass(Class<?> cl){
 		String predicate=cl.getAnnotation(Predicate.class).value();
 		predicateClass.put(predicate, cl);
+        Map<String,Method> namesMethods=new HashMap<>();
+        for(Method method:cl.getMethods())
+            if(method.getName().startsWith("set"))
+                namesMethods.put(method.getName(), method);
+        classSetterMethod.put(cl,namesMethods);
 		return predicate;
 	}
 	
@@ -25,7 +34,7 @@ public class ASPMapper {
 		return predicateClass.get(predicate);
 	}
 	
-	public String getAtom(Object obj) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IllegalTermException{
+	public String getString(Object obj) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IllegalTermException{
 		String predicate=registerClass(obj.getClass());
 		String atom=predicate+"(";
 		HashMap<Integer, Object> mapTerm=new HashMap<>();
@@ -56,24 +65,21 @@ public class ASPMapper {
 		Object obj=cl.newInstance();
 		//FIXME Not work with "a("asd,"). fix the split
 		String[] paramiter=atom.substring(atom.indexOf("(")+1, atom.lastIndexOf(")")).split(",");
-		for(Field field:obj.getClass().getDeclaredFields()){
+
+		for(Field field:cl.getDeclaredFields()){
+
 			if(field.isAnnotationPresent(Term.class)){
+
 				int term=field.getAnnotation(Term.class).value();
 				String nameMethod="set"+Character.toUpperCase(field.getName().charAt(0))+field.getName().substring(1);
-				
-				//FIXME call one time
-				for(Method method:cl.getMethods())
-					if(method.getName().equals(nameMethod)){
+                Method method=classSetterMethod.get(cl).get(nameMethod);
 
-						if(method.getParameterTypes()[0].getName().equals(int.class.getName()) || method.getParameterTypes()[0].getName().equals(Integer.class.getName()))
-							method.invoke(obj, Integer.valueOf(paramiter[term]));
-						
-						else
-							method.invoke(obj, paramiter[term]);
-						
-						break;
-					}
-				}
+                if(method.getParameterTypes()[0].getName().equals(int.class.getName()) || method.getParameterTypes()[0].getName().equals(Integer.class.getName()))
+                    method.invoke(obj, Integer.valueOf(paramiter[term]));
+                else
+                    method.invoke(obj, paramiter[term]);
+
+            }
 		}
 
 		return obj;
