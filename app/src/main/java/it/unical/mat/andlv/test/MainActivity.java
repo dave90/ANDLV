@@ -2,17 +2,12 @@ package it.unical.mat.andlv.test;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.List;
-
 import it.unical.mat.andlv.base.ASPHandler;
-import it.unical.mat.andlv.base.AnswerSet;
 import it.unical.mat.andlv.base.AnswerSetCallback;
 import it.unical.mat.andlv.base.AnswerSets;
-import it.unical.mat.andlv.base.mapper.ASPMapper;
 import it.unical.mat.andlv.dlv.DLVHandler;
 import it.unical.mat.dlv.R;
 
@@ -28,14 +23,12 @@ public class MainActivity extends Activity implements AnswerSetCallback{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         handler = new DLVHandler();
-        handler.addRawInput(BurningCalories.program);
-        //handler.addRawInput(Edb.RANDOM_1000_FACT);
+        handler.addRawInput(BurningCalories.program_part1);
         //ASPMapper.getInstance().registerClass(ActivityToDo.class);
-        ActivityToDo activity=new ActivityToDo();
-        activity.setType("walking");
-        activity.setHowLong(40);
-        handler.addOption("-pfilter=activity_to_do");
-        handler.addInput(activity);
+        //handler.addOption("-pfilter=activity_to_do");
+        //File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        //String file=dir.getAbsolutePath()+"/100000_random_detected_activity.lp";
+        //handler.addFileInput(file);
         handler.start(getApplicationContext(),this);
     }
 
@@ -52,7 +45,7 @@ public class MainActivity extends Activity implements AnswerSetCallback{
 
     @Override
     public void callback(AnswerSets answerSets) {
-       List<AnswerSet> answerSetList=answerSets.getAnswerSetsList();
+       /*List<AnswerSet> answerSetList=answerSets.getAnswerSetsList();
         for(AnswerSet answerSet:answerSetList){
             Log.i("RESULT ",answerSet.getAnswerSet());
             try {
@@ -61,7 +54,6 @@ public class MainActivity extends Activity implements AnswerSetCallback{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-
+        }*/
     }
 }

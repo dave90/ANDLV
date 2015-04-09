@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import it.unical.mat.andlv.base.ASPService;
@@ -41,7 +42,7 @@ public class DLVService extends ASPService {
      * @return String result computed
      */
     @Override
-    protected String handleActionSolve(String program, String options) {
+    protected String handleActionSolve(String program, String options, List<String> filesPath) {
         Log.i("DlvSevice", "Launch service");
         File file = new File(this.getFilesDir(), FILENAME);
 
@@ -56,8 +57,15 @@ public class DLVService extends ASPService {
             e.printStackTrace();
         }
 
+        StringBuilder completeProgram = new StringBuilder();
+        completeProgram.append(options).append(" ");
+        completeProgram.append(file.getAbsolutePath()).append(" ");
+
+        for(String s:filesPath)
+            completeProgram.append(s).append(" ");
+
         long startTime = System.nanoTime();
-        String result = dlvMain(options + " " + file.getAbsolutePath());
+        String result = dlvMain(completeProgram.toString());
         long stopTime = System.nanoTime();
         Log.i("DLV Execution Time", Long.toString(TimeUnit.NANOSECONDS.toMillis(stopTime - startTime)));
         return result;

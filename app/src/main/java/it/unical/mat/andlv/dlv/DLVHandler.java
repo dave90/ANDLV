@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import it.unical.mat.andlv.base.ASPHandler;
 import it.unical.mat.andlv.base.AnswerSetCallback;
 import it.unical.mat.andlv.base.OutputReceiver;
@@ -47,6 +49,7 @@ public class DLVHandler extends ASPHandler {
         intent.setAction(DLVService.ACTION_SOLVE);
         intent.putExtra(DLVService.PROGRAM, this.program.toString());
         intent.putExtra(DLVService.OPTION, this.options.toString());
+        intent.putExtra(DLVService.FILES, (ArrayList<String>)this.filesPaths);
         context.registerReceiver(receiver, new IntentFilter(DLVService.RESULT_NOTIFICATION));
         Log.i(getClass().getName()," start service");
         context.startService(intent);

@@ -3,6 +3,9 @@ package it.unical.mat.andlv.base;
 import android.app.IntentService;
 import android.content.Intent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Dario Campisano on 23/03/2015.
  * <p>ASPService is an {@link IntentService} subclass for handling asynchronous task requests in
@@ -18,6 +21,7 @@ public abstract class ASPService extends IntentService {
 
     public static final String PROGRAM = "it.unical.mat.andlv.PROGRAM";
     public static final String OPTION = "it.unical.mat.andlv.OPTION";
+    public static final String FILES = "it.unical.mat.andlv.FILES";
     public static final String SOLVER_RESULT = "it.unical.mat.andlv.SOLVER_RESULT";
 
     public static final String RESULT_NOTIFICATION = "it.unical.mat.andlv.RESULT_NOTIFICATION";
@@ -47,7 +51,8 @@ public abstract class ASPService extends IntentService {
                 //Send the result with a Broadcast Intent
                 final String program = intent.getStringExtra(PROGRAM);
                 final String options = intent.getStringExtra(OPTION);
-                final String result = handleActionSolve(program, options);
+                final ArrayList<String> files = intent.getStringArrayListExtra(FILES);
+                final String result = handleActionSolve(program, options, files);
                 publishResults(result);
             }
         }
@@ -72,6 +77,6 @@ public abstract class ASPService extends IntentService {
      * @param program
      * @param option
      */
-    protected abstract String handleActionSolve(String program, String option) ;
+    protected abstract String handleActionSolve(String program, String option, List<String> filesPath) ;
 
 }
