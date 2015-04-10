@@ -2,6 +2,7 @@ package it.unical.mat.andlv.base;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,7 @@ public abstract class ASPService extends IntentService {
                 final String options = intent.getStringExtra(OPTION);
                 final ArrayList<String> files = intent.getStringArrayListExtra(FILES);
                 final String result = handleActionSolve(program, options, files);
+                Log.i("result", result);
                 publishResults(result);
             }
         }
