@@ -1,13 +1,9 @@
 package it.unical.mat.andlv.base;
 
-import android.util.Log;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import it.unical.mat.andlv.base.mapper.ASPMapper;
 
@@ -18,6 +14,7 @@ import it.unical.mat.andlv.base.mapper.ASPMapper;
 public class AnswerSet {
     private String answerSet;//String representing the Answer Set
     private HashMap<Integer,Integer> weightMap;//Answer sets weights
+    private Set<Object> objectsAtoms;
 
     /**
      * Constructor intialize an AnswerSet object with a String containing the Answer Set
@@ -38,18 +35,19 @@ public class AnswerSet {
     }
 
     public Set<Object> getAnswerObjects() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        Set<Object> objectsAtom=new HashSet<>();
-        ASPMapper mapper=ASPMapper.getInstance();
-        String[] atoms=answerSet.split(", ");
-        if(atoms.length>0){
-            atoms[0]=atoms[0].substring(1);
-            atoms[atoms.length-1]=atoms[atoms.length-1].substring(0, atoms[atoms.length-1].length() - 1);
-            for(String atom:atoms)
-                objectsAtom.add(mapper.getObject(atom));
+        if(objectsAtoms ==null) {
+            objectsAtoms = new HashSet<>();
+            ASPMapper mapper = ASPMapper.getInstance();
+            String[] atoms = answerSet.split(", ");
+            if (atoms.length > 0) {
+                atoms[0] = atoms[0].substring(1);
+                atoms[atoms.length - 1] = atoms[atoms.length - 1].substring(0, atoms[atoms.length - 1].length() - 1);
+                for (String atom : atoms)
+                    objectsAtoms.add(mapper.getObject(atom));
 
+            }
         }
-
-        return objectsAtom;
+        return objectsAtoms;
     }
 
 }

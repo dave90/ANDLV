@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import it.unical.mat.andlv.base.mapper.ASPMapper;
+import it.unical.mat.andlv.base.mapper.IllegalTermException;
 
 /**
  * <p>ASPHandler is an Abstract class. It provides generic methods for an Answer Set Program execution handling.
@@ -45,14 +47,11 @@ public abstract class ASPHandler extends BroadcastReceiver{
         this.options.append(options);
     }
 
-    public void addInput(Object inputObj){
-        try{
-            program.append(ASPMapper.getInstance().getString(inputObj)).append(".");
-        }
-        catch(Exception e){}
+    public void addInput(Object inputObj) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IllegalTermException {
+        program.append(ASPMapper.getInstance().getString(inputObj)).append(".");
     }
 
-    public void addInput(Set<Object> inputObjs){
+    public void addInput(Set<Object> inputObjs) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IllegalTermException {
         for(Object inputObj:inputObjs)
             addInput(inputObj);
     }
