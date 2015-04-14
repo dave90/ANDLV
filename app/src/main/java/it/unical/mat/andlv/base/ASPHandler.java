@@ -1,6 +1,9 @@
 package it.unical.mat.andlv.base;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ import it.unical.mat.andlv.base.mapper.ASPMapper;
  * <p>ASPHandler is an Abstract class. It provides generic methods for an Answer Set Program execution handling.
  * Get an Answer Set Program and its options for the execution. Provide a public methos to start the Answer Set Program execution. </p>
  */
-public abstract class ASPHandler {
+public abstract class ASPHandler extends BroadcastReceiver{
 
     protected StringBuilder options;//stores program options
     protected StringBuilder program;//store an entire ASP program
@@ -69,9 +72,29 @@ public abstract class ASPHandler {
         program.append(rawInput);
     }
 
+    /**
+     * onReceive method get a Broadcast {@link android.content.Intent} sent, then send result to {@link it.unical.mat.andlv.base.ASPService}
+     * @param context Application Context
+     * @param intent get ASPService execution result when it is ready
+     * @see android.content.Context
+     * @see android.content.Intent
+     * @see android.os.Bundle
+     */
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            String ASPResult = bundle.getString(ASPService.SOLVER_RESULT);
+            if (ASPResult != null) {
+                receive(ASPResult);
+            }
+        }
+    }
+
 
     /**
-     * Abstract method called from an {@link OutputReceiver} when a result is notify
+     * Abstract method called from an when a result is notify
      * @param aspServiceOut
      */
     abstract protected void receive(String aspServiceOut);
