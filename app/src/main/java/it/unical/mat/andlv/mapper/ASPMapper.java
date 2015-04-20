@@ -65,14 +65,17 @@ public class ASPMapper {
         if(indexOf==-1) {
             //Arity 0
             predicate = atom;
-            return getClass(predicate).newInstance();
         }else
             predicate=atom.substring(0,atom.indexOf("("));
 		Class<?> cl=getClass(predicate);
-		Object obj=cl.newInstance();
-		//FIXME Not work with "a("asd,"). fix the split
-		String[] paramiter=atom.substring(atom.indexOf("(")+1, atom.lastIndexOf(")")).split(",");
-
+        // Not exist mapping between the predicate and the class
+        if(cl==null)return null;
+        Object obj=cl.newInstance();
+        //Term with arity 0 return obj
+        if(indexOf==-1)
+            return obj;
+        //FIXME Not work with "a("asd,"). fix the split
+        String[] paramiter=atom.substring(atom.indexOf("(")+1, atom.lastIndexOf(")")).split(",");
 		for(Field field:cl.getDeclaredFields()){
 
 			if(field.isAnnotationPresent(Term.class)){
