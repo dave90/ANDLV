@@ -1,4 +1,4 @@
-package it.unical.mat.andlv.base.mapper;
+package it.unical.mat.andlv.mapper;
 
 public class IllegalTermException extends Exception {
 

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import it.unical.mat.andlv.base.mapper.ASPMapper;
+import it.unical.mat.andlv.mapper.ASPMapper;
 
 /**
  * <p>AnswerSet class rapresents an Answer Set and contains get and set methods to handle it.</p>
@@ -39,7 +39,7 @@ public class AnswerSet {
             objectsAtoms = new HashSet<>();
             ASPMapper mapper = ASPMapper.getInstance();
             String[] atoms = answerSet.split(", ");
-            if (atoms.length > 0) {
+            if (atoms.length > 0 && !atoms[0].equals("{}")) {
                 atoms[0] = atoms[0].substring(1);
                 atoms[atoms.length - 1] = atoms[atoms.length - 1].substring(0, atoms[atoms.length - 1].length() - 1);
                 for (String atom : atoms)

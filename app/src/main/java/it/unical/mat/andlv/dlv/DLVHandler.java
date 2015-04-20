@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import it.unical.mat.andlv.base.ASPHandler;
 import it.unical.mat.andlv.base.AnswerSetCallback;
+import it.unical.mat.andlv.mapper.ASPMapper;
 
 /**
  * <p>DLVHandler is an implementation of an {@link it.unical.mat.andlv.base.ASPHandler} used for a DLV ASP solver execution handling.It uses
@@ -22,11 +23,14 @@ import it.unical.mat.andlv.base.AnswerSetCallback;
 public class DLVHandler extends ASPHandler{
     private AnswerSetCallback asCallback; //callback for result
 
+    private StringBuilder predicateToFilter;
+
     /**
      * Constructor inizialize the {@link DLVService}
      */
     public DLVHandler(){
         super();
+        predicateToFilter=new StringBuilder();
     }
 
     /** Starts DLVService and initialize Application {@link Context} and {@link it.unical.mat.andlv.base.AnswerSetCallback}
@@ -42,11 +46,54 @@ public class DLVHandler extends ASPHandler{
         Intent intent = new Intent(context, DLVService.class);
         intent.setAction(DLVService.ACTION_SOLVE);
         intent.putExtra(DLVService.PROGRAM, this.program.toString());
-        intent.putExtra(DLVService.OPTION, this.options.toString());
+        if(predicateToFilter.length()>0)
+            this.options.append(" -filter="+predicateToFilter.toString());
         intent.putExtra(DLVService.FILES, (ArrayList<String>)this.filesPaths);
+        intent.putExtra(DLVService.OPTION, this.options.toString());
         context.registerReceiver(this, new IntentFilter(DLVService.RESULT_NOTIFICATION));
         Log.i(getClass().getName()," start service");
         context.startService(intent);
+    }
+
+    @Override
+    public void setFilter(String... predicates) {
+        predicateToFilter=new StringBuilder();
+        for(int i=0;i<predicates.length;i++) {
+            if (i == 0)
+                predicateToFilter.append(predicates[i]);
+            else
+                predicateToFilter.append(","+predicates[i]);
+        }
+
+    }
+
+    @Override
+    public void addFilter(String predicate) {
+        if(predicateToFilter.length()==0)
+            predicateToFilter.append(predicate);
+        else
+            predicateToFilter.append(","+predicate);
+    }
+
+    @Override
+    public void setFilter(Class<?>... classes) {
+        predicateToFilter=new StringBuilder();
+        ASPMapper mapper=ASPMapper.getInstance();
+        for(int i=0;i<classes.length;i++) {
+            if (i == 0)
+                predicateToFilter.append(mapper.registerClass(classes[i]));
+            else
+                predicateToFilter.append(","+mapper.registerClass(classes[i]));
+        }
+    }
+
+    @Override
+    public void addFilter(Class<?> aClass) {
+        ASPMapper mapper=ASPMapper.getInstance();
+        if(predicateToFilter.length()==0)
+            predicateToFilter.append(mapper.registerClass(aClass));
+        else
+            predicateToFilter.append(","+mapper.registerClass(aClass));
     }
 
     /**

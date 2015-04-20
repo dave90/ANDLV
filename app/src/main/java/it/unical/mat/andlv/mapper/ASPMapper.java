@@ -1,4 +1,4 @@
-package it.unical.mat.andlv.base.mapper;
+package it.unical.mat.andlv.mapper;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -60,7 +60,14 @@ public class ASPMapper {
 	}
 	
 	public Object getObject(String atom) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException{
-		String predicate=atom.substring(0,atom.indexOf("("));
+		String predicate;
+        int indexOf=atom.indexOf("(");
+        if(indexOf==-1) {
+            //Arity 0
+            predicate = atom;
+            return getClass(predicate).newInstance();
+        }else
+            predicate=atom.substring(0,atom.indexOf("("));
 		Class<?> cl=getClass(predicate);
 		Object obj=cl.newInstance();
 		//FIXME Not work with "a("asd,"). fix the split

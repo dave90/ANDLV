@@ -6,13 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import it.unical.mat.andlv.base.mapper.ASPMapper;
-import it.unical.mat.andlv.base.mapper.IllegalTermException;
+import it.unical.mat.andlv.mapper.ASPMapper;
+import it.unical.mat.andlv.mapper.IllegalTermException;
 
 /**
  * <p>ASPHandler is an Abstract class. It provides generic methods for an Answer Set Program execution handling.
@@ -47,6 +48,14 @@ public abstract class ASPHandler extends BroadcastReceiver{
         this.options.append(options);
     }
 
+    abstract public void setFilter(String... predicates);
+
+    abstract public void addFilter(String predicate);
+
+    abstract public void setFilter(Class<?>... classes);
+
+    abstract public void addFilter(Class<?> aClass);
+
     public void addInput(Object inputObj) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IllegalTermException {
         program.append(ASPMapper.getInstance().getString(inputObj)).append(".");
     }
@@ -56,11 +65,12 @@ public abstract class ASPHandler extends BroadcastReceiver{
             addInput(inputObj);
     }
 
-    public void addFileInput(String filePath){
+    public void addFileInput(String filePath) throws FileNotFoundException {
         File f=new File(filePath);
-        if(f.isFile())
+        if(f.exists() && f.isFile())
             this.filesPaths.add(filePath);
-        //TODO generare una eccezione quando il file non esiste?
+        else
+            throw new FileNotFoundException();
     }
 
     /**

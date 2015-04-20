@@ -18,14 +18,14 @@ import java.util.List;
  */
 public abstract class ASPService extends IntentService {
     //Intent messages/actions/extras for ASPService start and BroadcastReceiver communication
-    public static final String ACTION_SOLVE = "it.unical.mat.andlv.SOLVE";
+    public static final String ACTION_SOLVE = "it.unical.mat.it.unical.mat.andlv.SOLVE";
 
-    public static final String PROGRAM = "it.unical.mat.andlv.PROGRAM";
-    public static final String OPTION = "it.unical.mat.andlv.OPTION";
-    public static final String FILES = "it.unical.mat.andlv.FILES";
-    public static final String SOLVER_RESULT = "it.unical.mat.andlv.SOLVER_RESULT";
+    public static final String PROGRAM = "it.unical.mat.it.unical.mat.andlv.PROGRAM";
+    public static final String OPTION = "it.unical.mat.it.unical.mat.andlv.OPTION";
+    public static final String FILES = "it.unical.mat.it.unical.mat.andlv.FILES";
+    public static final String SOLVER_RESULT = "it.unical.mat.it.unical.mat.andlv.SOLVER_RESULT";
 
-    public static final String RESULT_NOTIFICATION = "it.unical.mat.andlv.RESULT_NOTIFICATION";
+    public static final String RESULT_NOTIFICATION = "it.unical.mat.it.unical.mat.andlv.RESULT_NOTIFICATION";
 
     /**
      * Constructor
