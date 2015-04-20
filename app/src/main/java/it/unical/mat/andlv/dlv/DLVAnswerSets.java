@@ -1,6 +1,9 @@
 package it.unical.mat.andlv.dlv;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,10 +26,18 @@ public class DLVAnswerSets extends AnswerSets{
 
     @Override
     protected void parse() {
-        Pattern pattern = Pattern.compile("[{](.*)[}]");
+        Pattern pattern = Pattern.compile("\\{(.*)\\}");
         Matcher matcher = pattern.matcher(answerSetsString);
-        while (matcher.find())
-            answerSetsList.add(new AnswerSet(matcher.group()));
+        while (matcher.find()) {
+            String answerSet=matcher.group();
+            Pattern patternAnswerSet = Pattern.compile("(-?[a-z][A-Za-z0-9_]*(\\(.*?\\))?)(, |\\})");
+            Matcher matcherAnswerSet = patternAnswerSet.matcher(answerSet);
+            List<String> answerSetList=new ArrayList<>();
+            while (matcherAnswerSet.find()) {
+                answerSetList.add(matcherAnswerSet.group(1));
+            }
+            answerSetsList.add(new AnswerSet(answerSetList));
+        }
 
     }
 }
