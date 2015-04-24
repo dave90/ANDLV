@@ -18,7 +18,7 @@ import it.unical.mat.andlv.dlv.DLVHandler;
 import it.unical.mat.dlv.R;
 
 /**
- * <p>Test MainActivity for andlv </p>
+ * <p>Test MainActivity for it.unical.mat.andlv </p>
  */
 public class MainActivity extends Activity implements AnswerSetCallback{
 
@@ -32,21 +32,31 @@ public class MainActivity extends Activity implements AnswerSetCallback{
         setContentView(R.layout.activity_main);
         handler = new DLVHandler();
 
-        handler.addRawInput(BurningCalories.program);
+        handler.addRawInput("col(N,red) | col(N,green) | col(N,blue) :- node(N).");
+        handler.addRawInput(":- col(N1,C1), col(N2,C1), edge(N1,N2).");
+        String filepath=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+ File.separator+ "edb_edge.txt";
+        /*
+            edb_edge.txt:
+            node("node_1").
+            node("node_2").
+            node("node_3").
+        */
+        try {
+            handler.addFileInput(filepath);
+            handler.setFilter(Col.class);
 
-        //handler.addRawInput(BurningCalories.program_part1);
 
-        //handler.addRawInput(BurningCalories.program_part2);
 
-        /*handler.addRawInput(Edb.TRUE_FACT);*/
-
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        String file=dir.getAbsolutePath()+"/11449_true_detected_activity.lp";
-        handler.addFileInput(file);
-
-        handler.addOption("-filter=activity_to_do");
-
-        handler.start(getApplicationContext(),this);
+            Edge edge1 = new Edge("node_1","node_2");
+            Edge edge2 = new Edge("node_1","node_3");
+            Edge edge3 = new Edge("node_3","node_2");
+            handler.addInput(edge1);
+            handler.addInput(edge2);
+            handler.addInput(edge3);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        handler.start(getApplicationContext(), this);
     }
 
 
@@ -63,16 +73,18 @@ public class MainActivity extends Activity implements AnswerSetCallback{
     @Override
     public void callback(AnswerSets answerSets) {
        List<AnswerSet> answerSetList=answerSets.getAnswerSetsList();
-       text.setText(answerSetList.get(0).getAnswerSet());
-       setContentView(text);
-       /* for(AnswerSet answerSet:answerSetList){
-            Log.i("RESULT ",answerSet.getAnswerSet());
+       String text="";
+
+       for(AnswerSet answerSet:answerSetList){
             try {
                 for(Object obj:answerSet.getAnswerObjects())
-                    Log.i("ATOM",obj.toString());
+                    text+=obj.toString()+",";
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }*/
+           text+="\n\n";
+        }
+        this.text.setText(text);
+        setContentView(this.text);
     }
 }
