@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import it.unical.mat.andlv.base.ASPService;
+import it.unical.mat.andlv.utils.TimeTracker;
 
 /**
  */
@@ -64,10 +65,10 @@ public class DLVService extends ASPService {
         for(String s:filesPath)
             completeProgram.append(s).append(" ");
 
-        long startTime = System.nanoTime();
+
+        TimeTracker.logTime("Before the DLV C++ function");
         String result = dlvMain(completeProgram.toString());
-        long stopTime = System.nanoTime();
-        Log.i("DLV Execution Time", Long.toString(TimeUnit.NANOSECONDS.toMillis(stopTime - startTime)));
+        TimeTracker.logTime("After the DLV C++ function");
         return result;
     }
 

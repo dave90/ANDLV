@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import it.unical.mat.andlv.base.AnswerSet;
 import it.unical.mat.andlv.base.AnswerSets;
+import it.unical.mat.andlv.utils.TimeTracker;
 
 /**
  *
@@ -26,6 +27,7 @@ public class DLVAnswerSets extends AnswerSets{
 
     @Override
     protected void parse() {
+        TimeTracker.logTime("Beginning of DLVAnswerSets::parse function");
         Pattern pattern = Pattern.compile("\\{(.*)\\}");
         Matcher matcher = pattern.matcher(answerSetsString);
         while (matcher.find()) {
@@ -38,6 +40,6 @@ public class DLVAnswerSets extends AnswerSets{
             }
             answerSetsList.add(new AnswerSet(answerSetList));
         }
-
+        TimeTracker.logTime("End of DLVAnswerSets::parse function");
     }
 }

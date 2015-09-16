@@ -7,10 +7,13 @@ import android.content.IntentFilter;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Logger;
 
 import it.unical.mat.andlv.base.ASPHandler;
 import it.unical.mat.andlv.base.AnswerSetCallback;
 import it.unical.mat.andlv.mapper.ASPMapper;
+import it.unical.mat.andlv.utils.TimeTracker;
 
 /**
  * <p>DLVHandler is an implementation of an {@link it.unical.mat.andlv.base.ASPHandler} used for a DLV ASP solver execution handling.It uses
@@ -21,6 +24,7 @@ import it.unical.mat.andlv.mapper.ASPMapper;
  * @see android.content.BroadcastReceiver
  */
 public class DLVHandler extends ASPHandler{
+
     private AnswerSetCallback asCallback; //callback for result
 
     private StringBuilder predicateToFilter;
@@ -41,6 +45,7 @@ public class DLVHandler extends ASPHandler{
      */
     @Override
     public void start(Context context, AnswerSetCallback asCallback) {
+        TimeTracker.logTime("Beginning of DLVHandler::start function");
         this.asCallback = asCallback;
         killingDlvService(context);
         Intent intent = new Intent(context, DLVService.class);
@@ -51,8 +56,9 @@ public class DLVHandler extends ASPHandler{
         intent.putExtra(DLVService.FILES, (ArrayList<String>)this.filesPaths);
         intent.putExtra(DLVService.OPTION, this.options.toString());
         context.registerReceiver(this, new IntentFilter(DLVService.RESULT_NOTIFICATION));
-        Log.i(getClass().getName()," start service");
+        Log.i(getClass().getName(), " start service");
         context.startService(intent);
+        TimeTracker.logTime("End of DLVHandler::start function");
     }
 
     @Override
